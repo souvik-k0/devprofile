@@ -1,0 +1,1907 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Redacted — Noir Detective Case Files & Simulation Case Study</title>
+  <meta name="description" content="Technical architecture, procedural audio synthesis, and AI case generation breakdown of Redacted — Noir Detective Murder Mystery App.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+  <style>
+    
+    :root {
+      --bg-base: #ffffff;
+      --bg-subtle: #f8fafc;
+      --bg-card: #ffffff;
+      --bg-card-hover: #fafafa;
+      --bg-elevated: #ffffff;
+      
+      --border-light: #e2e8f0;
+      --border-subtle: #f1f5f9;
+      --border-dark: #0f172a;
+      
+      --text-main: #0f172a;
+      --text-muted: #475569;
+      --text-faint: #94a3b8;
+      
+      --brand-primary: #0f172a;
+      --brand-accent: #2563eb;
+      --brand-accent-bg: #eff6ff;
+      --brand-accent-border: #bfdbfe;
+
+      --font-display: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-body: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-code: 'JetBrains Mono', monospace;
+
+      --radius-sm: 8px;
+      --radius-md: 14px;
+      --radius-lg: 20px;
+      --radius-xl: 28px;
+      --radius-full: 9999px;
+
+      --shadow-subtle: 0 1px 3px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.02);
+      --shadow-card: 0 4px 20px -2px rgba(15, 23, 42, 0.05), 0 2px 6px -1px rgba(15, 23, 42, 0.03);
+      --shadow-hover: 0 20px 35px -4px rgba(15, 23, 42, 0.08), 0 4px 12px -2px rgba(15, 23, 42, 0.04);
+      --shadow-modal: 0 25px 50px -12px rgba(15, 23, 42, 0.25);
+
+      --transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      font-size: 16px;
+    }
+
+    body {
+      background-color: var(--bg-base);
+      color: var(--text-main);
+      font-family: var(--font-body);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      background-image: radial-gradient(#e2e8f0 1px, transparent 1px);
+      background-size: 28px 28px;
+      background-attachment: fixed;
+      padding-bottom: 5rem;
+    }
+
+    /* Top Sticky Header */
+    .top-nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(255, 255, 255, 0.94);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border-light);
+      padding: 0.85rem 1.5rem;
+    }
+
+    .nav-container {
+      max-width: 1180px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .nav-back {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-decoration: none;
+      padding: 0.4rem 0.9rem;
+      border-radius: var(--radius-full);
+      border: 1px solid var(--border-light);
+      background: var(--bg-base);
+      transition: var(--transition);
+    }
+
+    .nav-back:hover {
+      color: var(--text-main);
+      border-color: var(--text-main);
+      transform: translateX(-3px);
+    }
+
+    .nav-brand {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      text-decoration: none;
+    }
+
+    .nav-logo {
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: var(--shadow-subtle);
+      overflow: hidden;
+      border: 1px solid var(--border-light);
+      background: #ffffff;
+    }
+
+    .nav-logo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .nav-title {
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--text-main);
+      letter-spacing: -0.01em;
+    }
+
+    .nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .btn-download-nav {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      padding: 0.45rem 1.1rem;
+      background: var(--text-main);
+      color: #ffffff;
+      font-size: 0.82rem;
+      font-weight: 600;
+      border-radius: var(--radius-full);
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+      transition: var(--transition);
+    }
+
+    .btn-download-nav:hover {
+      opacity: 0.9;
+      transform: translateY(-1px);
+    }
+
+    /* Container */
+    .page-wrapper {
+      max-width: 1140px;
+      margin: 0 auto;
+      padding: 2.5rem 1.5rem;
+    }
+
+    /* Hero */
+    .hero-section {
+      background: var(--bg-card);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-xl);
+      padding: 3rem;
+      margin-bottom: 2.5rem;
+      box-shadow: var(--shadow-card);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-badges {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.45rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      padding: 0.22rem 0.7rem;
+      border-radius: var(--radius-full);
+      font-size: 0.74rem;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+      border: 1px solid var(--border-light);
+      background: var(--bg-subtle);
+      color: var(--text-muted);
+      white-space: nowrap;
+      flex-shrink: 0;
+      line-height: 1.3;
+    }
+
+    .hero-header-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 1.5rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .hero-app-icon {
+      width: 72px;
+      height: 72px;
+      border-radius: 18px;
+      border: 1.5px solid var(--border-light);
+      box-shadow: var(--shadow-card);
+      overflow: hidden;
+      flex-shrink: 0;
+      background: #ffffff;
+    }
+
+    .hero-app-icon img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .hero-title-group {
+      flex: 1;
+    }
+
+    .hero-title {
+      font-family: var(--font-display);
+      font-size: clamp(2.2rem, 5vw, 3.4rem);
+      font-weight: 800;
+      color: var(--text-main);
+      line-height: 1.15;
+      letter-spacing: -0.03em;
+      margin-bottom: 0.5rem;
+    }
+
+    .hero-subtitle {
+      font-size: 1.15rem;
+      font-weight: 500;
+      color: var(--text-muted);
+      line-height: 1.5;
+      max-width: 860px;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.85rem;
+      margin-top: 1.75rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--border-subtle);
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.75rem 1.6rem;
+      background: var(--text-main);
+      color: #ffffff;
+      font-size: 0.92rem;
+      font-weight: 600;
+      border-radius: var(--radius-full);
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+      transition: var(--transition);
+      box-shadow: 0 4px 12px rgba(15, 23, 42, 0.15);
+    }
+
+    .btn-primary:hover {
+      background: #1e293b;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 18px rgba(15, 23, 42, 0.2);
+    }
+
+    .btn-outline {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.75rem 1.4rem;
+      background: var(--bg-base);
+      color: var(--text-main);
+      font-size: 0.92rem;
+      font-weight: 600;
+      border-radius: var(--radius-full);
+      border: 1px solid var(--border-light);
+      cursor: pointer;
+      text-decoration: none;
+      transition: var(--transition);
+    }
+
+    .btn-outline:hover {
+      background: var(--bg-subtle);
+      border-color: var(--text-main);
+      transform: translateY(-2px);
+    }
+
+    /* Key Specs Grid */
+    .specs-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+      gap: 1rem;
+      margin-top: 2rem;
+      background: var(--bg-subtle);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-lg);
+      padding: 1.5rem;
+    }
+
+    .spec-item {
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+    }
+
+    .spec-label {
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      font-weight: 700;
+      color: var(--text-faint);
+      letter-spacing: 0.05em;
+    }
+
+    .spec-value {
+      font-size: 0.92rem;
+      font-weight: 600;
+      color: var(--text-main);
+      font-family: var(--font-code);
+    }
+
+    /* Section Cards */
+    .content-section {
+      background: var(--bg-card);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-xl);
+      padding: 2.75rem;
+      margin-bottom: 2.5rem;
+      box-shadow: var(--shadow-card);
+    }
+
+    .section-header {
+      margin-bottom: 2rem;
+      padding-bottom: 1rem;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .section-tag {
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--brand-accent);
+      margin-bottom: 0.4rem;
+    }
+
+    .section-title {
+      font-family: var(--font-display);
+      font-size: 1.85rem;
+      font-weight: 700;
+      color: var(--text-main);
+      letter-spacing: -0.02em;
+    }
+
+    .section-desc {
+      font-size: 0.98rem;
+      color: var(--text-muted);
+      margin-top: 0.4rem;
+      line-height: 1.6;
+    }
+
+    /* Screenshots Gallery */
+    .screenshots-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 1rem;
+    }
+
+    .screenshot-card {
+      background: #ffffff;
+      border: 1.5px solid var(--border-light);
+      border-radius: 16px;
+      padding: 0.65rem;
+      text-align: center;
+      cursor: pointer;
+      transition: var(--transition);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      box-shadow: var(--shadow-subtle);
+    }
+
+    .screenshot-card:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--shadow-hover);
+      border-color: var(--text-main);
+    }
+
+    .phone-mockup {
+      width: 100%;
+      aspect-ratio: 9 / 19.5;
+      background: #0f172a;
+      border: 1.5px solid var(--border-light);
+      border-radius: 12px;
+      overflow: hidden;
+      position: relative;
+      margin-bottom: 0.75rem;
+      box-shadow: 0 4px 12px rgba(15, 23, 42, 0.1);
+    }
+
+    .phone-mockup img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top center;
+      display: block;
+      transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .screenshot-card:hover .phone-mockup img {
+      transform: scale(1.05);
+    }
+
+    .screenshot-label {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--text-main);
+      margin-bottom: 0.2rem;
+      line-height: 1.3;
+    }
+
+    .screenshot-sub {
+      font-size: 0.72rem;
+      color: var(--text-muted);
+    }
+
+    /* Feature Cards */
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(310px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .feature-card {
+      background: var(--bg-subtle);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-lg);
+      padding: 1.75rem;
+      transition: var(--transition);
+    }
+
+    .feature-card:hover {
+      background: #ffffff;
+      border-color: var(--border-dark);
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-card);
+    }
+
+    .feature-icon-box {
+      width: 44px;
+      height: 44px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.35rem;
+      margin-bottom: 1.1rem;
+      background: #ffffff;
+      border: 1px solid var(--border-light);
+      box-shadow: var(--shadow-subtle);
+    }
+
+    .feature-title {
+      font-family: var(--font-display);
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--text-main);
+      margin-bottom: 0.5rem;
+    }
+
+    .feature-text {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      line-height: 1.55;
+    }
+
+    /* Highlight Callout Box */
+    .highlight-box {
+      background: linear-gradient(135deg, var(--bg-subtle), #ffffff);
+      border: 1px solid var(--border-light);
+      border-left: 4px solid var(--brand-accent);
+      border-radius: var(--radius-md);
+      padding: 1.5rem 1.75rem;
+      margin: 1.5rem 0;
+    }
+
+    .highlight-box h4 {
+      font-family: var(--font-display);
+      font-size: 1.05rem;
+      color: var(--text-main);
+      margin-bottom: 0.4rem;
+    }
+
+    .highlight-box p {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      line-height: 1.55;
+    }
+
+    /* Code / ASCII Block */
+    .code-container {
+      background: #0f172a;
+      color: #f8fafc;
+      border-radius: var(--radius-lg);
+      padding: 1.5rem;
+      overflow-x: auto;
+      font-family: var(--font-code);
+      font-size: 0.82rem;
+      line-height: 1.5;
+      margin: 1.5rem 0;
+      border: 1px solid #1e293b;
+      position: relative;
+    }
+
+    .code-container pre {
+      margin: 0;
+      white-space: pre;
+    }
+
+    .code-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.85rem;
+      padding-bottom: 0.65rem;
+      border-bottom: 1px solid #334155;
+      font-size: 0.72rem;
+      color: #94a3b8;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    /* Comparison / Spec Tables */
+    .table-container {
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      margin: 1.5rem 0 0.65rem;
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-lg);
+      background: #ffffff;
+      box-shadow: var(--shadow-subtle);
+    }
+
+    table {
+      width: 100%;
+      min-width: 620px;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 0.88rem;
+    }
+
+    th {
+      background: var(--bg-subtle);
+      padding: 0.85rem 1.15rem;
+      font-weight: 700;
+      color: var(--text-main);
+      border-bottom: 1px solid var(--border-light);
+      font-family: var(--font-display);
+      white-space: nowrap;
+    }
+
+    td {
+      padding: 0.85rem 1.15rem;
+      border-bottom: 1px solid var(--border-subtle);
+      color: var(--text-muted);
+      line-height: 1.55;
+    }
+
+    td:first-child {
+      font-weight: 600;
+      white-space: nowrap;
+    }
+
+    tr:last-child td {
+      border-bottom: none;
+    }
+
+    td strong {
+      color: var(--text-main);
+      font-weight: 600;
+    }
+
+    .table-hint {
+      display: none;
+      font-size: 0.76rem;
+      color: var(--text-faint);
+      margin-bottom: 1.5rem;
+      align-items: center;
+      gap: 0.35rem;
+    }
+
+    /* Next / Previous Project Footer */
+    .project-nav-section {
+      margin-top: 2.5rem;
+      padding-top: 1.75rem;
+      border-top: 1px solid var(--border-light);
+    }
+
+    .project-nav-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 0.85rem;
+    }
+
+    .project-nav-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-light);
+      border-radius: 12px;
+      padding: 0.85rem 1.15rem;
+      text-decoration: none;
+      color: inherit;
+      display: flex;
+      flex-direction: column;
+      gap: 0.22rem;
+      transition: var(--transition);
+    }
+
+    .project-nav-card:hover {
+      border-color: var(--text-main);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-subtle);
+    }
+
+    .nav-card-dir {
+      font-size: 0.65rem;
+      text-transform: uppercase;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      color: var(--text-faint);
+    }
+
+    .nav-card-title {
+      font-family: var(--font-display);
+      font-size: 0.96rem;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+
+    .nav-card-desc {
+      font-size: 0.78rem;
+      line-height: 1.4;
+      color: var(--text-muted);
+    }
+
+    /* Modal Styling */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.65);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+      opacity: 0;
+      transition: opacity 0.25s ease;
+    }
+
+    .modal-overlay.active {
+      display: flex;
+      opacity: 1;
+    }
+
+    .modal-card {
+      background: #ffffff;
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-xl);
+      max-width: 520px;
+      width: 100%;
+      padding: 2.25rem;
+      box-shadow: var(--shadow-modal);
+      position: relative;
+      transform: scale(0.95);
+      transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .modal-overlay.active .modal-card {
+      transform: scale(1);
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 1.25rem;
+      right: 1.25rem;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      border: 1px solid var(--border-light);
+      background: var(--bg-subtle);
+      color: var(--text-muted);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      transition: var(--transition);
+    }
+
+    .modal-close:hover {
+      background: var(--text-main);
+      color: #ffffff;
+    }
+
+    .download-progress-bar {
+      width: 100%;
+      height: 8px;
+      background: var(--border-subtle);
+      border-radius: var(--radius-full);
+      overflow: hidden;
+      margin: 1.25rem 0;
+    }
+
+    .download-progress-fill {
+      height: 100%;
+      width: 0%;
+      background: var(--text-main);
+      border-radius: var(--radius-full);
+      transition: width 0.3s ease;
+    }
+
+    /* Lightbox Modal */
+        /* Redesigned Portrait Smartphone Lightbox Modal */
+    .lightbox-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.65);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      z-index: 2000;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+    }
+
+    .lightbox-overlay.active {
+      display: flex;
+    }
+
+    .lightbox-content {
+      background: #ffffff;
+      border-radius: var(--radius-xl);
+      max-width: 860px;
+      width: 100%;
+      padding: 2.25rem;
+      position: relative;
+      box-shadow: var(--shadow-modal);
+      max-height: 94vh;
+      overflow-y: auto;
+    }
+
+    .lightbox-modal-layout {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 2.25rem;
+      align-items: center;
+      text-align: left;
+    }
+
+    @media (max-width: 768px) {
+      .lightbox-modal-layout {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+      }
+    }
+
+    .modal-phone-wrapper {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.65rem;
+      position: relative;
+    }
+
+    .modal-phone-frame {
+      width: 285px;
+      aspect-ratio: 9 / 19.5;
+      max-height: 70vh;
+      border-radius: 28px;
+      overflow: hidden;
+      background: #0f172a;
+      border: 3.5px solid #1e293b;
+      box-shadow: 0 20px 50px -10px rgba(15, 23, 42, 0.35);
+      position: relative;
+      flex-shrink: 0;
+    }
+
+    .modal-phone-frame img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top center;
+      display: block;
+      transition: opacity 0.2s ease;
+    }
+
+    .modal-nav-btn {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      border: 1.5px solid var(--border-light);
+      background: #ffffff;
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: var(--shadow-card);
+      transition: var(--transition);
+      flex-shrink: 0;
+    }
+
+    .modal-nav-btn:hover {
+      background: var(--text-main);
+      color: #ffffff;
+      border-color: var(--text-main);
+      transform: scale(1.08);
+    }
+
+    .modal-info-panel {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      text-align: left;
+    }
+
+    .modal-screen-counter {
+      font-family: var(--font-code);
+      font-size: 0.76rem;
+      font-weight: 700;
+      color: var(--text-faint);
+      background: var(--bg-subtle);
+      padding: 0.25rem 0.65rem;
+      border-radius: var(--radius-full);
+      border: 1px solid var(--border-light);
+    }
+
+    .modal-screen-heading {
+      font-family: var(--font-display);
+      font-size: 1.45rem;
+      font-weight: 800;
+      color: var(--text-main);
+      line-height: 1.25;
+      margin-bottom: 0.75rem;
+    }
+
+    .modal-screen-text {
+      font-size: 0.92rem;
+      color: var(--text-muted);
+      line-height: 1.65;
+      margin-bottom: 1.5rem;
+    }
+
+    .modal-thumbs-row {
+      display: flex;
+      gap: 0.5rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .modal-thumb-btn {
+      width: 46px;
+      aspect-ratio: 9 / 19.5;
+      border-radius: 6px;
+      overflow: hidden;
+      border: 2px solid var(--border-light);
+      cursor: pointer;
+      padding: 0;
+      background: #0f172a;
+      transition: var(--transition);
+      opacity: 0.6;
+    }
+
+    .modal-thumb-btn img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .modal-thumb-btn.active {
+      border-color: var(--brand-accent);
+      opacity: 1;
+      transform: scale(1.08);
+      box-shadow: 0 4px 10px rgba(37, 99, 235, 0.25);
+    }
+
+    .modal-thumb-btn:hover {
+      opacity: 1;
+    }
+
+    .modal-keyboard-hint {
+      font-size: 0.76rem;
+      color: var(--text-faint);
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+
+    .modal-keyboard-hint kbd {
+      background: var(--bg-subtle);
+      border: 1px solid var(--border-light);
+      border-radius: 4px;
+      padding: 0.15rem 0.4rem;
+      font-family: var(--font-code);
+      font-size: 0.7rem;
+      color: var(--text-muted);
+    }
+
+    :root {
+      --brand-accent: #b45309;
+      --brand-accent-bg: #fefce8;
+      --brand-accent-border: #fef08a;
+    }
+
+    /* Footer & Contact Details */
+    .footer {
+      padding: 4.5rem 0 3.75rem;
+      border-top: 1px solid var(--border-light);
+      background: #ffffff;
+      position: relative;
+      margin-top: 4rem;
+    }
+
+    .footer-inner {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 1.4rem;
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    .footer-message {
+      text-align: center;
+    }
+
+    .footer-thankyou {
+      font-family: var(--font-display);
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: var(--text-main);
+      margin-bottom: 0.4rem;
+    }
+
+    .footer-subtext {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+    }
+
+    .footer-contacts {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      gap: 0.85rem;
+      margin-top: 0.25rem;
+    }
+
+    .footer-contact-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.55rem;
+      padding: 0.55rem 1.15rem;
+      background: #ffffff;
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-full);
+      color: var(--text-main);
+      font-size: 0.86rem;
+      font-weight: 600;
+      text-decoration: none;
+      box-shadow: var(--shadow-subtle);
+      transition: var(--transition);
+    }
+
+    .contact-pill-icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .contact-pill-icon svg {
+      width: 17px;
+      height: 17px;
+      display: block;
+    }
+
+    /* Authentic Vibrant Brand Colors for Icons */
+    .contact-pill-icon.icon-phone,
+    .contact-pill-icon.icon-phone svg {
+      color: #16a34a !important;
+      stroke: #16a34a !important;
+    }
+
+    .contact-pill-icon.icon-email,
+    .contact-pill-icon.icon-email svg {
+      color: #ea4335 !important;
+      stroke: #ea4335 !important;
+    }
+
+    .contact-pill-icon.icon-linkedin,
+    .contact-pill-icon.icon-linkedin svg {
+      color: #0a66c2 !important;
+      fill: #0a66c2 !important;
+    }
+
+    .contact-pill-icon.icon-facebook,
+    .contact-pill-icon.icon-facebook svg {
+      color: #1877f2 !important;
+      fill: #1877f2 !important;
+    }
+
+    /* Individual pill hover interactions maintaining colourful icons */
+    .footer-contact-pill:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(15, 23, 42, 0.08);
+      color: var(--text-main);
+    }
+
+    .footer-contact-pill:hover .contact-pill-icon {
+      transform: scale(1.18);
+    }
+
+    .footer-contact-pill.pill-phone:hover {
+      border-color: #86efac;
+      background: #f0fdf4;
+    }
+
+    .footer-contact-pill.pill-email:hover {
+      border-color: #fca5a5;
+      background: #fef2f2;
+    }
+
+    .footer-contact-pill.pill-linkedin:hover {
+      border-color: #93c5fd;
+      background: #f0f7ff;
+    }
+
+    .footer-contact-pill.pill-facebook:hover {
+      border-color: #93c5fd;
+      background: #f0f7ff;
+    }
+
+    .footer-copyright {
+      font-size: 0.8rem;
+      color: var(--text-faint);
+      margin-top: 0.5rem;
+      letter-spacing: 0.01em;
+    }
+
+    /* ==========================================================================
+       MOBILE OPTIMISATION — COMPREHENSIVE RESPONSIVE BREAKPOINTS
+       ========================================================================== */
+    @media (max-width: 992px) {
+      .screenshots-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    @media (max-width: 768px) {
+      .top-nav {
+        padding: 0.65rem 1rem;
+      }
+      .nav-container {
+        padding: 0;
+        gap: 0.65rem;
+      }
+      .nav-title {
+        font-size: 0.95rem;
+      }
+      .page-wrapper {
+        padding: 1.5rem 1rem;
+      }
+      .hero-section {
+        padding: 1.75rem 1.5rem;
+        border-radius: 18px;
+      }
+      .content-section {
+        padding: 1.75rem 1.5rem;
+        border-radius: 18px;
+      }
+      .hero-header-row {
+        gap: 1rem;
+      }
+      .hero-title {
+        font-size: clamp(1.7rem, 6vw, 2.5rem);
+      }
+      .hero-subtitle {
+        font-size: 0.97rem;
+      }
+      .hero-actions {
+        flex-direction: row;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: flex-start;
+        gap: 0.6rem;
+      }
+      .hero-actions .btn-primary,
+      .hero-actions .btn-outline {
+        width: auto;
+        flex: 0 0 auto;
+        justify-content: center;
+        text-align: center;
+        padding: 0.58rem 1.15rem;
+        font-size: 0.85rem;
+      }
+      .specs-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 0.75rem;
+        padding: 1rem;
+      }
+      .section-title {
+        font-size: 1.5rem;
+      }
+      .feature-grid {
+        grid-template-columns: 1fr;
+      }
+      .project-nav-grid {
+        grid-template-columns: 1fr;
+      }
+      .modal-card {
+        padding: 1.75rem 1.25rem;
+      }
+      .lightbox-content {
+        padding: 1.5rem 1.1rem;
+      }
+      .lightbox-modal-layout {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+      }
+      .modal-phone-frame {
+        width: 220px;
+        max-height: 60vh;
+      }
+      .table-container {
+        font-size: 0.82rem;
+        border-radius: 12px;
+        -webkit-overflow-scrolling: touch;
+      }
+      th, td {
+        padding: 0.75rem 0.95rem;
+      }
+      .table-hint {
+        display: flex;
+      }
+      .code-container {
+        font-size: 0.72rem;
+        padding: 1.1rem;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .screenshots-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 0.75rem;
+      }
+      .hero-app-icon {
+        width: 56px;
+        height: 56px;
+      }
+      .hero-header-row {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+      .hero-badges {
+        gap: 0.35rem;
+        margin-bottom: 1rem;
+      }
+      .badge {
+        font-size: 0.68rem;
+        padding: 0.18rem 0.55rem;
+        white-space: nowrap;
+        flex-shrink: 0;
+      }
+      .specs-grid {
+        grid-template-columns: 1fr 1fr;
+        padding: 0.75rem;
+      }
+      .nav-back span:last-child {
+        display: none;
+      }
+      .btn-download-nav span {
+        display: none;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .top-nav {
+        padding: 0.55rem 0.75rem;
+      }
+      .nav-container {
+        gap: 0.5rem;
+      }
+      .hero-section {
+        padding: 1.25rem 1rem;
+        border-radius: 14px;
+        margin-bottom: 1.25rem;
+      }
+      .content-section {
+        padding: 1.25rem 1rem;
+        border-radius: 14px;
+        margin-bottom: 1.25rem;
+      }
+      .screenshots-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 0.6rem;
+      }
+      .screenshot-card {
+        padding: 0.5rem;
+      }
+      .screenshot-label {
+        font-size: 0.78rem;
+      }
+      .screenshot-sub {
+        font-size: 0.66rem;
+      }
+      .hero-title {
+        font-size: clamp(1.5rem, 8vw, 2rem);
+      }
+      .section-title {
+        font-size: 1.3rem;
+      }
+      .section-desc {
+        font-size: 0.88rem;
+      }
+      .feature-card {
+        padding: 1.25rem;
+      }
+      .feature-title {
+        font-size: 1rem;
+      }
+      .feature-text {
+        font-size: 0.83rem;
+      }
+      .hero-badges {
+        gap: 0.3rem;
+        margin-bottom: 0.85rem;
+      }
+      .badge {
+        font-size: 0.65rem;
+        padding: 0.16rem 0.5rem;
+        white-space: nowrap;
+        flex-shrink: 0;
+      }
+      .highlight-box {
+        padding: 1.1rem 1.25rem;
+      }
+      .highlight-box p {
+        font-size: 0.85rem;
+      }
+      .footer {
+        padding: 3rem 0 2.25rem;
+      }
+      .footer-contacts {
+        flex-direction: column;
+        align-items: stretch;
+      }
+      .footer-contact-pill {
+        justify-content: center;
+      }
+      .modal-phone-frame {
+        width: 180px;
+      }
+      .modal-nav-btn {
+        width: 34px;
+        height: 34px;
+      }
+      .modal-thumbs-row {
+        flex-wrap: wrap;
+        gap: 0.35rem;
+      }
+      .modal-thumb-btn {
+        width: 38px;
+      }
+    }
+
+
+    /* Compact Project Nav on Mobile */
+    @media (max-width: 768px) {
+      .project-nav-section {
+        margin-top: 1.75rem;
+        padding-top: 1.25rem;
+      }
+      .project-nav-section > div:first-child {
+        margin-bottom: 0.85rem;
+      }
+      .project-nav-section > div:first-child h3 {
+        font-size: 1.05rem;
+      }
+      .project-nav-section > div:first-child p {
+        font-size: 0.78rem;
+      }
+      .project-nav-card {
+        padding: 0.72rem 0.95rem;
+        border-radius: 10px;
+        gap: 0.18rem;
+      }
+      .nav-card-dir {
+        font-size: 0.62rem;
+      }
+      .nav-card-title {
+        font-size: 0.88rem;
+      }
+      .nav-card-desc {
+        font-size: 0.74rem;
+        line-height: 1.35;
+      }
+      .project-nav-grid {
+        gap: 0.6rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .project-nav-section {
+        margin-top: 1.25rem;
+        padding-top: 1rem;
+      }
+      .project-nav-card {
+        padding: 0.62rem 0.82rem;
+      }
+      .nav-card-title {
+        font-size: 0.85rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Top Sticky Header -->
+  <header class="top-nav">
+    <div class="nav-container">
+      <a href="index.html#showcase" class="nav-back">
+        <span>←</span>
+        <span>Back to Showcase</span>
+      </a>
+      <div class="nav-brand">
+        <div class="nav-logo">
+          <img src="Redacted/Logo.jpg" alt="Redacted Logo">
+        </div>
+        <span class="nav-title">Redacted (Case Files)</span>
+      </div>
+      <div class="nav-actions">
+        <a href="app%20download/Redacted.apk" download="Redacted.apk" class="btn-download-nav">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="flex-shrink:0;"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          <span>Download APK</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <div class="page-wrapper">
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+      <div class="hero-badges">
+        <span class="badge" style="background: #fefce8; color: #b45309; border-color: #fef08a;">🕵️ Classified Noir Simulation</span>
+        <span class="badge">Kotlin 1.9.22</span>
+        <span class="badge">Jetpack Compose M3</span>
+        <span class="badge">Gemini 1.5 Flash / DeepSeek</span>
+        <span class="badge">Room 2.8.4</span>
+        <span class="badge">PCM Sine Synthesizer</span>
+      </div>
+
+      <div class="hero-header-row">
+        <div class="hero-app-icon">
+          <img src="Redacted/Logo.jpg" alt="Redacted Logo">
+        </div>
+        <div class="hero-title-group">
+          <h1 class="hero-title">Redacted</h1>
+          <p class="hero-subtitle">
+            Top secret classified homicide dossiers and fair-play procedural investigation simulation set in 1980–2010 Kolkata.
+          </p>
+        </div>
+      </div>
+
+      <div class="hero-actions">
+        <a href="app%20download/Redacted.apk" download="Redacted.apk" class="btn-primary">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="flex-shrink:0;"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          <span>Download APK (10.9 MB)</span>
+        </a>
+        <a href="#screenshots" class="btn-outline">
+          <span>📱</span>
+          <span>Screenshots (5)</span>
+        </a>
+        <a href="#gameplay" class="btn-outline">
+          <span>🎮</span>
+          <span>Gameplay Loop</span>
+        </a>
+        <a href="#audio-engine" class="btn-outline">
+          <span>🔊</span>
+          <span>Zero-Asset Audio</span>
+        </a>
+      </div>
+
+      <!-- Quick Specs -->
+      <div class="specs-grid">
+        <div class="spec-item">
+          <span class="spec-label">Package Name</span>
+          <span class="spec-value">com.redacted.detective</span>
+        </div>
+        <div class="spec-item">
+          <span class="spec-label">Architecture</span>
+          <span class="spec-value">MVVM + StateFlow UDF</span>
+        </div>
+        <div class="spec-item">
+          <span class="spec-label">Primary AI Models</span>
+          <span class="spec-value">Gemini 1.5 & DeepSeek Chat</span>
+        </div>
+        <div class="spec-item">
+          <span class="spec-label">Persistence</span>
+          <span class="spec-value">Room DB (Cascade Keys)</span>
+        </div>
+        <div class="spec-item">
+          <span class="spec-label">Synthesized Audio</span>
+          <span class="spec-value">AudioTrack Real-Time PCM</span>
+        </div>
+        <div class="spec-item">
+          <span class="spec-label">Localization</span>
+          <span class="spec-value">English & Bengali (বাংলা)</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Screenshots Section -->
+    <section class="content-section" id="screenshots">
+      <div class="section-header">
+        <div class="section-tag">High-Resolution Native Previews</div>
+        <h2 class="section-title">Application Screenshots</h2>
+        <p class="section-desc">Click any classified dossier screen below to inspect the gameplay interfaces and visual styling in the Lightbox viewer.</p>
+      </div>
+
+      <div class="screenshots-grid">
+        <!-- 1 -->
+        <div class="screenshot-card" onclick="openLightbox(0)">
+          <div class="phone-mockup">
+            <img src="Redacted/Screen 1.jpg" alt="Redacted Screen 1" loading="lazy">
+          </div>
+          <div class="screenshot-label">1. Classified Dossier</div>
+          <div class="screenshot-sub">Victim, Cause & Backstory</div>
+        </div>
+
+        <!-- 2 -->
+        <div class="screenshot-card" onclick="openLightbox(1)">
+          <div class="phone-mockup">
+            <img src="Redacted/Screen 2.jpg" alt="Redacted Screen 2" loading="lazy">
+          </div>
+          <div class="screenshot-label">2. Interrogation Room</div>
+          <div class="screenshot-sub">Live AI Roleplay & Suspicion</div>
+        </div>
+
+        <!-- 3 -->
+        <div class="screenshot-card" onclick="openLightbox(2)">
+          <div class="phone-mockup">
+            <img src="Redacted/Screen 3.jpg" alt="Redacted Screen 3" loading="lazy">
+          </div>
+          <div class="screenshot-label">3. Crime Scene Search</div>
+          <div class="screenshot-sub">Autopsy Clues & Room Search</div>
+        </div>
+
+        <!-- 4 -->
+        <div class="screenshot-card" onclick="openLightbox(3)">
+          <div class="phone-mockup">
+            <img src="Redacted/Screen 4.jpg" alt="Redacted Screen 4" loading="lazy">
+          </div>
+          <div class="screenshot-label">4. Forensic Lab</div>
+          <div class="screenshot-sub">5s Chemical & Ballistic Turnaround</div>
+        </div>
+
+        <!-- 5 -->
+        <div class="screenshot-card" onclick="openLightbox(4)">
+          <div class="phone-mockup">
+            <img src="Redacted/Screen 5.jpg" alt="Redacted Screen 5" loading="lazy">
+          </div>
+          <div class="screenshot-label">5. Case Accusation</div>
+          <div class="screenshot-sub">Keyword Match & Truth Breakdown</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Gameplay Loop -->
+    <section class="content-section" id="gameplay">
+      <div class="section-header">
+        <div class="section-tag">Core Mechanics</div>
+        <h2 class="section-title">The Detective Gameplay Loop</h2>
+        <p class="section-desc">Fair-play deduction wrapped in resource management and tactile atmosphere.</p>
+      </div>
+
+      <div class="code-container">
+        <div class="code-header">
+          <span>State Progression</span>
+          <span>Game State Machine</span>
+        </div>
+        <pre>
++-----------------------------------------------------------------------------------+
+|                              DETECTIVE GAMEPLAY LOOP                              |
+|                                                                                   |
+|  [ Detective Login ] -> [ Case Picker / AI Generation ] -> [ Classified Dossier ] |
+|                                                                       |           |
+|                                                                       v           |
+|   +-------------------------- INVESTIGATION (20 AP) ---------------------------+  |
+|   |  - Interrogate Suspects (Live AI Roleplay / Offline Emotion Engine)        |  |
+|   |  - Crime Scene Search (Examine Body & Search Crime Room)                   |  |
+|   |  - Forensic Analysis (5s Simulated Chemical/Ballistic/Digital Turnaround)  |  |
+|   +----------------------------------------------------------------------------+  |
+|                                       |                                           |
+|                                       v                                           |
+|  [ Formal Accusation ] -> [ Culprit & Motive Evaluation ] -> [ Truth & Solution ] |
+|                                       |                                           |
+|                                       v                                           |
+|               [ XP Reward & Detective Rank Advancement (+100 XP) ]                |
++-----------------------------------------------------------------------------------+</pre>
+      </div>
+
+      <div class="feature-grid">
+        <div class="feature-card">
+          <div class="feature-icon-box">⚡</div>
+          <h3 class="feature-title">20 Action Points (AP) Resource Budget</h3>
+          <p class="feature-text">Detectives start with 20 AP per case. Every interrogation question, autopsy examination, or forensic test consumes 1 AP, requiring efficient deduction before the trail goes cold.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon-box">📻</div>
+          <h3 class="feature-title">6 Distinct 1980–2010 Era Genres</h3>
+          <p class="feature-text">Filter or procedurally generate cases across Cold War Espionage, Early Internet & BBS, Corporate Raiders, Analog to Digital, Music Industry Bootlegging, and Academic Espionage.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon-box">🎭</div>
+          <h3 class="feature-title">Dynamic Suspect Emotion Engine</h3>
+          <p class="feature-text">Guilty suspects craft subtle timeline inconsistencies and escalate nervousness when caught. Innocent suspects stay confident in their alibis but guard unrelated private secrets.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon-box">📜</div>
+          <h3 class="feature-title">Fair-Play Golden Age Mystery Rules</h3>
+          <p class="feature-text">Adheres strictly to Agatha Christie and Byomkesh Bakshi deduction principles: all necessary clues are discoverable through rigorous investigation—never random chance.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Audio Synthesizer Deep Dive -->
+    <section class="content-section" id="audio-engine">
+      <div class="section-header">
+        <div class="section-tag">Audio Architecture</div>
+        <h2 class="section-title">Zero-Asset Procedural Audio Synthesizer</h2>
+        <p class="section-desc">Real-time PCM sine wave frequency synthesis using low-level Android AudioTrack.</p>
+      </div>
+
+      <div class="highlight-box">
+        <h4>Acoustic Engineering with Zero External Audio Files (SoundManager.kt)</h4>
+        <p>The entire atmospheric soundscape is synthesized mathematically on the fly using Android's low-level `AudioTrack` and 16-bit PCM encoding. APK size remains ultra-compact because zero `.mp3` or `.wav` sound files are packaged.</p>
+      </div>
+
+      <div class="table-container">
+        <table>
+          <thead>
+            <tr>
+              <th>Sound Event</th>
+              <th>Mathematical Frequency Synthesis</th>
+              <th>Psychoacoustic Function</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Typewriter Keystroke</strong></td>
+              <td>800 Hz short pulse (15ms) with rapid decay</td>
+              <td>Provides tactile haptic & acoustic feedback on typing dialogue dispatches.</td>
+            </tr>
+            <tr>
+              <td><strong>Evidence Discovery</strong></td>
+              <td>Ascending sine sweep: 1200 Hz → 1800 Hz</td>
+              <td>Signals critical clue unearthing during autopsy and room searches.</td>
+            </tr>
+            <tr>
+              <td><strong>Case Solved Triad</strong></td>
+              <td>Harmonic major triad: 440 Hz → 554 Hz → 659 Hz</td>
+              <td>Rewarding acoustic flourish confirming successful criminal accusation.</td>
+            </tr>
+            <tr>
+              <td><strong>Cold Case Buzzer</strong></td>
+              <td>Descending dissonance: 150 Hz → 100 Hz</td>
+              <td>Low-frequency rumble indicating an incorrect accusation or exhausted AP.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="table-hint">
+        <span>← Swipe horizontally to view full technical table →</span>
+      </div>
+    </section>
+
+    <!-- Tech Specs & Directory Tour -->
+    <section class="content-section">
+      <div class="section-header">
+        <div class="section-tag">Engineering Matrix</div>
+        <h2 class="section-title">Technical Specifications & Stack</h2>
+        <p class="section-desc">Native Android architectural specifications and room database schema.</p>
+      </div>
+
+      <div class="code-container">
+        <div class="code-header">
+          <span>Relational Schema</span>
+          <span>Room Database 2.8.4</span>
+        </div>
+        <pre>
+┌─────────────────────────┐          ┌─────────────────────────┐
+│       UserEntity        │          │       CaseEntity        │
+│ • userId (Primary Key)  │          │ • caseId (Primary Key)  │
+│ • detectiveRank / XP    │          │ • narrativeBackstory    │
+│ • casesSolved / Stats   │          │ • solution / Keywords   │
+└─────────────────────────┘          └────────────┬────────────┘
+                                                  │ (Cascade FK)
+             ┌────────────────────────────────────┼────────────────────────────────────┐
+             ▼                                    ▼                                    ▼
+┌─────────────────────────┐          ┌─────────────────────────┐          ┌─────────────────────────┐
+│      SuspectEntity      │          │     EvidenceEntity      │          │       NoteEntity        │
+│ • suspectId (PK)        │          │ • evidenceId (PK)       │          │ • noteId (PK)           │
+│ • alibi / secret / guilt│          │ • stage (body/room/lab) │          │ • interrogationLogs     │
+└─────────────────────────┘          └─────────────────────────┘          └─────────────────────────┘</pre>
+      </div>
+
+      <div class="feature-grid" style="margin-top: 1.5rem;">
+        <div class="feature-card">
+          <div class="feature-icon-box">🛡️</div>
+          <h3 class="feature-title">On-Device Privacy First</h3>
+          <p class="feature-text">All detective progress, dossiers, notes, and solved cases are stored strictly in an encrypted on-device SQLite database. Zero external user tracking or cloud account locks.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon-box">🌐</div>
+          <h3 class="feature-title">Dual-Language Engine</h3>
+          <p class="feature-text">Complete bilingual support for English and authentic Bengali (বাংলা), celebrating Bengali detective traditions (Feluda, Byomkesh Bakshi, Kakababu) and Kolkata landmarks.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Next / Prev Project Footer -->
+    <div class="project-nav-section">
+      <div style="text-align: center; margin-bottom: 2rem;">
+        <h3 style="font-family: var(--font-display); font-size: 1.3rem; font-weight: 700; color: var(--text-main);">Explore More Projects</h3>
+        <p style="font-size: 0.88rem; color: var(--text-muted); margin-top: 0.25rem;">Handcrafted native Android & generative AI case studies by Souvik Karmakar.</p>
+      </div>
+
+      <div class="project-nav-grid">
+        <a href="pyaarai.html" class="project-nav-card">
+          <span class="nav-card-dir">← Previous Project</span>
+          <span class="nav-card-title">PyaarAI</span>
+          <span class="nav-card-desc">Romantic Companion, Urdu/Hindi Poet & Tactile Scrapbook.</span>
+        </a>
+        <a href="souvikeq.html" class="project-nav-card">
+          <span class="nav-card-dir">Next Project →</span>
+          <span class="nav-card-title">SouvikEQ Audio DSP</span>
+          <span class="nav-card-desc">Intelligent Acoustic Studio & System-Wide Android Equalizer.</span>
+        </a>
+      </div>
+
+      <div style="text-align: center; margin-top: 2.5rem;">
+        <a href="index.html#showcase" class="btn-outline">
+          <span>←</span>
+          <span>Return to Developer Portfolio</span>
+        </a>
+        <p style="font-size: 0.78rem; color: var(--text-faint); margin-top: 1.25rem;">
+          Thank you for inspecting the architecture of Redacted. Built with passion & precision.
+        </p>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- MINIMALIST THANK YOU & CONTACT FOOTER -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-message">
+        <p class="footer-thankyou">Thank you for checking out my page! ✨</p>
+        <p class="footer-subtext">Hope you enjoyed exploring the apps — have a wonderful day!</p>
+      </div>
+
+      <!-- Contact Details Bar -->
+        <div class="footer-contacts">
+          <!-- Phone -->
+          <a href="tel:+918481841368" class="footer-contact-pill pill-phone" title="Call Souvik">
+            <span class="contact-pill-icon icon-phone">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+              </svg>
+            </span>
+            <span class="contact-pill-text">+91 84818 41368</span>
+          </a>
+
+          <!-- Email -->
+          <a href="mailto:souvik.k0@gmail.com" class="footer-contact-pill pill-email" title="Email Souvik">
+            <span class="contact-pill-icon icon-email">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                <polyline points="22,6 12,13 2,6"/>
+              </svg>
+            </span>
+            <span class="contact-pill-text">souvik.k0@gmail.com</span>
+          </a>
+
+          <!-- LinkedIn -->
+          <a href="https://www.linkedin.com/in/souvik0/" target="_blank" rel="noopener noreferrer" class="footer-contact-pill pill-linkedin" title="Souvik's LinkedIn">
+            <span class="contact-pill-icon icon-linkedin">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 10.9v8.37H9.2V10.9H6.46M7.83 6.64a1.64 1.64 0 1 0 0 3.28 1.64 1.64 0 0 0 0-3.28z"/>
+              </svg>
+            </span>
+            <span class="contact-pill-text">LinkedIn</span>
+          </a>
+
+          <!-- Facebook -->
+          <a href="https://www.facebook.com/souvik.karmakar.14" target="_blank" rel="noopener noreferrer" class="footer-contact-pill pill-facebook" title="Souvik's Facebook">
+            <span class="contact-pill-icon icon-facebook">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+              </svg>
+            </span>
+            <span class="contact-pill-text">Facebook</span>
+          </a>
+        </div>
+
+        <div class="footer-copyright">
+        © 2026 Souvik Karmakar • Digital Project Manager &amp; AI / Application Developer
+      </div>
+    </div>
+  </footer>
+
+  <!-- Download Modal -->
+  <div class="modal-overlay" id="downloadModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal-card">
+      <button class="modal-close" onclick="closeDownloadModal()" aria-label="Close modal">&times;</button>
+      <div id="modalIconBox" style="width: 56px; height: 56px; border-radius: 14px; overflow: hidden; margin-bottom: 0.85rem; border: 1px solid var(--border-light);">
+        <img id="modalIconImg" src="" alt="App Icon" style="width: 100%; height: 100%; object-fit: cover;">
+      </div>
+      <h3 id="modalTitle" style="font-family: var(--font-display); font-size: 1.35rem; font-weight: 700; color: var(--text-main); margin-bottom: 0.35rem;">Downloading APK Package</h3>
+      <p id="modalSub" style="font-size: 0.85rem; color: var(--text-muted);">Preparing signed production build...</p>
+      
+      <div class="download-progress-bar">
+        <div class="download-progress-fill" id="downloadFill"></div>
+      </div>
+
+      <div style="display: flex; justify-content: space-between; font-size: 0.75rem; color: var(--text-faint); font-family: var(--font-code);">
+        <span id="downloadStatus">Connecting to file stream...</span>
+        <span id="downloadPercent">0%</span>
+      </div>
+
+      <div style="margin-top: 1.5rem; padding: 0.85rem; background: var(--bg-subtle); border: 1px solid var(--border-light); border-radius: var(--radius-md); font-size: 0.78rem; color: var(--text-muted); display: flex; align-items: center; gap: 0.5rem;">
+        <span style="font-size: 1rem;">🛡️</span>
+        <span>Real signed production APK. Ready for direct installation on Android 8.0+.</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Lightbox Modal -->
+  <div class="lightbox-overlay" id="lightboxModal" role="dialog" aria-modal="true" onclick="closeLightbox(event)">
+    <div class="lightbox-content" onclick="event.stopPropagation()">
+      <button class="modal-close" onclick="closeLightbox()">&times;</button>
+      <div id="lightboxInner">
+        <!-- Injected via JS -->
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let activeApkPath = '';
+
+    function triggerDownload(appName, apkSize, apkPath, logoSrc) {
+      const path = apkPath || 'app%20download/Redacted.apk';
+      const link = document.createElement('a');
+      link.href = encodeURI(path);
+      link.download = path.split('/').pop();
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
+
+    function closeDownloadModal() {
+      document.getElementById('downloadModal').classList.remove('active');
+    }
+
+    // Screen Lightbox Gallery with Prev/Next and Keyboard Support
+    const PAGE_SCREENS = [{'src': 'Redacted/Screen 1.jpg', 'title': 'Classified Case Dossier', 'desc': 'Manila folder aesthetic with classified evidence photo ID stamps, victim identification, and 200+ word narrative backstories.', 'badge': 'Case Briefing'}, {'src': 'Redacted/Screen 2.jpg', 'title': 'Suspect Interrogation Room', 'desc': 'Live conversational AI roleplay. Guilty suspects deflect suspicion while innocent suspects defend unrelated secrets.', 'badge': 'Interrogation'}, {'src': 'Redacted/Screen 3.jpg', 'title': 'Crime Scene & Autopsy', 'desc': 'Thorough environmental searches and physical body examination to uncover weapon fragments and hidden keys.', 'badge': 'Scene Search'}, {'src': 'Redacted/Screen 4.jpg', 'title': 'Forensic Laboratory', 'desc': '5-second simulated chemical, ballistic, and digital turnaround that extracts decisive technical smoking guns.', 'badge': 'Forensic Lab'}, {'src': 'Redacted/Screen 5.jpg', 'title': 'Accusation & Truth Reveal', 'desc': 'Cross-references written motive against required keywords, presents the true sequence of events, and awards XP.', 'badge': 'Accusation'}];
+
+    let currentScreenIndex = 0;
+
+    function renderActiveScreen() {
+      const s = PAGE_SCREENS[currentScreenIndex];
+      if (!s) return;
+
+      const inner = document.getElementById('lightboxInner');
+      inner.innerHTML = `
+        <div class="lightbox-modal-layout">
+          <div class="modal-phone-wrapper">
+            <button class="modal-nav-btn" onclick="navPageScreenshot(-1)" aria-label="Previous">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 18l-6-6 6-6"/></svg>
+            </button>
+            <div class="modal-phone-frame">
+              <img src="${s.src}" alt="${s.title}">
+            </div>
+            <button class="modal-nav-btn" onclick="navPageScreenshot(1)" aria-label="Next">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg>
+            </button>
+          </div>
+
+          <div class="modal-info-panel">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.75rem;">
+              <span class="section-tag" style="margin:0;">${s.badge}</span>
+              <span class="modal-screen-counter">${currentScreenIndex + 1} of ${PAGE_SCREENS.length}</span>
+            </div>
+            <h3 class="modal-screen-heading">${s.title}</h3>
+            <p class="modal-screen-text">${s.desc}</p>
+
+            <div class="modal-thumbs-row">
+              ${PAGE_SCREENS.map((item, idx) => `
+                <button class="modal-thumb-btn ${idx === currentScreenIndex ? 'active' : ''}" onclick="goToPageScreen(${idx})" aria-label="Screen ${idx+1}">
+                  <img src="${item.src}" alt="Thumb ${idx+1}">
+                </button>
+              `).join('')}
+            </div>
+
+            <div class="modal-keyboard-hint">
+              <span>Tip: Use</span> <kbd>←</kbd> <kbd>→</kbd> <span>arrows or swipe to browse screens</span>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    function openLightbox(arg) {
+      if (typeof arg === 'number') {
+        currentScreenIndex = arg;
+      } else {
+        currentScreenIndex = 0;
+      }
+      renderActiveScreen();
+      document.getElementById('lightboxModal').classList.add('active');
+    }
+
+    function navPageScreenshot(dir) {
+      currentScreenIndex = (currentScreenIndex + dir + PAGE_SCREENS.length) % PAGE_SCREENS.length;
+      renderActiveScreen();
+    }
+
+    function goToPageScreen(idx) {
+      currentScreenIndex = idx;
+      renderActiveScreen();
+    }
+
+    function closeLightbox(e) {
+      if (!e || e.target === document.getElementById('lightboxModal') || e.target.classList.contains('modal-close')) {
+        document.getElementById('lightboxModal').classList.remove('active');
+      }
+    }
+
+    document.addEventListener('keydown', (e) => {
+      const lb = document.getElementById('lightboxModal');
+      if (lb && lb.classList.contains('active')) {
+        if (e.key === 'ArrowLeft') navPageScreenshot(-1);
+        if (e.key === 'ArrowRight') navPageScreenshot(1);
+        if (e.key === 'Escape') closeLightbox();
+      } else if (e.key === 'Escape') {
+        closeDownloadModal();
+      }
+    });
+  </script>
+
+</body>
+</html>

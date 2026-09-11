@@ -1,0 +1,2703 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Souvik Karmakar | Senior Android & AI Systems Engineer</title>
+  <meta name="description"
+    content="Portfolio of Souvik Karmakar — Senior Native Android & Generative AI Systems Engineer. Featuring PyaarAI, Redacted Noir Detective, SouvikEQ Audio DSP, and Parchhai Street Chronicle Engine.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Outfit:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap"
+    rel="stylesheet">
+  <style>
+    /* ==========================================================================
+       1. MINIMALISTIC DESIGN TOKENS & RESET (CLEAN WHITE PALETTE)
+       ========================================================================== */
+    :root {
+      --bg-base: #ffffff;
+      --bg-subtle: #f8fafc;
+      --bg-card: #ffffff;
+      --bg-card-hover: #fafafa;
+      --bg-elevated: #ffffff;
+
+      --border-light: #e2e8f0;
+      --border-subtle: #f1f5f9;
+      --border-dark: #0f172a;
+
+      --text-main: #0f172a;
+      --text-muted: #475569;
+      --text-faint: #94a3b8;
+
+      --brand-primary: #0f172a;
+      --brand-accent: #2563eb;
+      --brand-accent-bg: #eff6ff;
+      --brand-accent-border: #bfdbfe;
+
+      /* Project Light-Theme Accents */
+      --pyaar-color: #e11d48;
+      --pyaar-bg: #fff1f2;
+      --pyaar-border: #fecdd3;
+
+      --redacted-color: #b45309;
+      --redacted-bg: #fefce8;
+      --redacted-border: #fef08a;
+
+      --eq-color: #0284c7;
+      --eq-bg: #f0f9ff;
+      --eq-border: #bae6fd;
+
+      --parchhai-color: #7c3aed;
+      --parchhai-bg: #faf5ff;
+      --parchhai-border: #e9d5ff;
+
+      --font-display: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-body: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      --font-code: 'JetBrains Mono', monospace;
+
+      --radius-sm: 8px;
+      --radius-md: 14px;
+      --radius-lg: 20px;
+      --radius-xl: 28px;
+      --radius-full: 9999px;
+
+      --shadow-subtle: 0 1px 3px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.02);
+      --shadow-card: 0 4px 20px -2px rgba(15, 23, 42, 0.05), 0 2px 6px -1px rgba(15, 23, 42, 0.03);
+      --shadow-hover: 0 20px 35px -4px rgba(15, 23, 42, 0.08), 0 4px 12px -2px rgba(15, 23, 42, 0.04);
+      --shadow-modal: 0 25px 50px -12px rgba(15, 23, 42, 0.25);
+
+      --transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      background-color: var(--bg-base);
+      color: var(--text-main);
+    }
+
+    body {
+      font-family: var(--font-body);
+      line-height: 1.65;
+      background-color: var(--bg-base);
+      color: var(--text-main);
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    /* Minimalist Grid Pattern Background */
+    .bg-grid-pattern {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      background-image: radial-gradient(#e2e8f0 1px, transparent 1px);
+      background-size: 28px 28px;
+      opacity: 0.55;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 1360px;
+      margin: 0 auto;
+      padding: 0 2rem;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Typography */
+    h1,
+    h2,
+    h3,
+    h4 {
+      font-family: var(--font-display);
+      font-weight: 700;
+      line-height: 1.2;
+      color: var(--text-main);
+      letter-spacing: -0.025em;
+    }
+
+    p {
+      color: var(--text-muted);
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    /* Badges & Tags */
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.45rem;
+      font-family: var(--font-code);
+      font-size: 0.76rem;
+      font-weight: 600;
+      padding: 0.35rem 0.85rem;
+      border-radius: var(--radius-full);
+      background: var(--bg-subtle);
+      border: 1px solid var(--border-light);
+      color: var(--text-muted);
+      letter-spacing: 0.02em;
+    }
+
+    .badge-primary {
+      background: #f1f5f9;
+      color: var(--text-main);
+      border-color: #cbd5e1;
+    }
+
+    .badge-status {
+      background: #ecfdf5;
+      color: #065f46;
+      border-color: #a7f3d0;
+    }
+
+    .status-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #10b981;
+      box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.2);
+    }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex;
+      text-decoration: none;
+      align-items: center;
+      justify-content: center;
+      gap: 0.45rem;
+      font-family: var(--font-body);
+      font-size: 0.85rem;
+      font-weight: 600;
+      padding: 0.52rem 1.15rem;
+      border-radius: 9px;
+      cursor: pointer;
+      border: 1px solid transparent;
+      transition: var(--transition);
+      text-align: center;
+      line-height: 1.4;
+    }
+
+    .btn-dark {
+      background: #0f172a;
+      color: #ffffff;
+      border-color: #0f172a;
+    }
+
+    .btn-dark:hover {
+      background: #1e293b;
+      transform: translateY(-1px);
+      box-shadow: 0 6px 16px rgba(15, 23, 42, 0.12);
+    }
+
+    .btn-outline {
+      background: #ffffff;
+      color: var(--text-main);
+      border: 1px solid var(--border-light);
+      box-shadow: var(--shadow-subtle);
+    }
+
+    .btn-outline:hover {
+      background: var(--bg-subtle);
+      border-color: #cbd5e1;
+      transform: translateY(-1px);
+    }
+
+    .btn-sm {
+      padding: 0.45rem 0.95rem;
+      font-size: 0.84rem;
+      border-radius: var(--radius-sm);
+    }
+
+    /* ==========================================================================
+       2. MINIMALIST NAVIGATION BAR
+       ========================================================================== */
+    .navbar {
+      position: sticky;
+      top: 1rem;
+      z-index: 100;
+      margin-bottom: 2.5rem;
+    }
+
+    .nav-inner {
+      background: rgba(255, 255, 255, 0.88);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-full);
+      padding: 0.6rem 1.4rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
+    }
+
+    .nav-brand {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+      font-family: var(--font-display);
+      font-weight: 800;
+      font-size: 1.15rem;
+      letter-spacing: -0.02em;
+    }
+
+    .nav-logo-icon {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      background: #0f172a;
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.88rem;
+      font-weight: 800;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 1.8rem;
+      list-style: none;
+    }
+
+    .nav-link {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      transition: var(--transition);
+    }
+
+    .nav-link:hover,
+    .nav-link.active {
+      color: var(--text-main);
+    }
+
+    /* ==========================================================================
+       3. DEVELOPER PROFILE HERO SECTION (POLISHED EDITORIAL SIDE-BY-SIDE)
+       ========================================================================== */
+    .hero-section {
+      padding: 3.5rem 0 4rem;
+    }
+
+    .hero-card {
+      background: #ffffff;
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-xl);
+      padding: 3rem 2.85rem;
+      box-shadow: var(--shadow-card);
+      position: relative;
+    }
+
+    .hero-avatar-center {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 2.75rem;
+    }
+
+    .avatar-wrapper {
+      position: relative;
+      width: 200px;
+      height: 200px;
+      margin: 0 auto;
+    }
+
+    .avatar-inner {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      background: #f8fafc;
+      border: 3.5px solid var(--border-light);
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 12px 28px -6px rgba(15, 23, 42, 0.12), 0 4px 10px -2px rgba(15, 23, 42, 0.05);
+    }
+
+    .avatar-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 20%;
+      display: block;
+      transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .avatar-inner:hover .avatar-img {
+      transform: scale(1.06);
+    }
+
+    .avatar-badge {
+      position: absolute;
+      bottom: -7px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: #ffffff;
+      border: 1.5px solid #a7f3d0;
+      border-radius: var(--radius-full);
+      padding: 0.25rem 0.75rem;
+      display: flex;
+      align-items: center;
+      gap: 0.38rem;
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: #065f46;
+      box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+      white-space: nowrap;
+    }
+
+    /* Side-by-Side Split: Left = Bio, Right = Focus */
+    .hero-side-by-side {
+      display: grid;
+      grid-template-columns: 1fr 1.08fr;
+      gap: 3rem;
+      align-items: start;
+    }
+
+    .hero-main-col {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .hero-meta-strip {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 0.45rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .meta-pill {
+      font-size: 0.73rem;
+      font-weight: 700;
+      padding: 0.22rem 0.68rem;
+      border-radius: var(--radius-full);
+      border: 1px solid var(--border-light);
+      background: var(--bg-subtle);
+      color: var(--text-main);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+
+    .meta-pill.primary {
+      background: #eff6ff;
+      color: #1d4ed8;
+      border-color: #bfdbfe;
+    }
+
+    .meta-pill.secondary {
+      background: #f5f3ff;
+      color: #6d28d9;
+      border-color: #ddd6fe;
+    }
+
+    .hero-name {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 2.7vw, 2.55rem);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      color: #0f172a;
+      line-height: 1.15;
+      margin-bottom: 0.55rem;
+    }
+
+    .hero-tagline {
+      font-size: 0.98rem;
+      font-weight: 600;
+      color: #2563eb;
+      line-height: 1.45;
+      margin-bottom: 0.85rem;
+    }
+
+    .hero-bio {
+      font-size: 0.9rem;
+      color: #475569;
+      line-height: 1.68;
+      margin: 0;
+    }
+
+    .hero-bio strong {
+      color: #0f172a;
+      font-weight: 600;
+    }
+
+    /* Right Column: Focus & Pursuits */
+    .hero-focus-col {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .focus-header-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 0.75rem;
+    }
+
+    .focus-section-title {
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-faint);
+    }
+
+    .focus-status-badge {
+      font-size: 0.68rem;
+      font-weight: 600;
+      color: #047857;
+      background: #ecfdf5;
+      border: 1px solid #a7f3d0;
+      padding: 0.15rem 0.55rem;
+      border-radius: var(--radius-full);
+    }
+
+    .focus-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.75rem;
+    }
+
+    .focus-card {
+      background: var(--bg-subtle);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-md);
+      padding: 0.95rem 1rem;
+      display: flex;
+      flex-direction: column;
+      transition: var(--transition);
+    }
+
+    .focus-card:hover {
+      background: #ffffff;
+      border-color: #cbd5e1;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(15, 23, 42, 0.05);
+    }
+
+    .focus-card-header {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 0.4rem;
+    }
+
+    .focus-icon {
+      font-size: 1.15rem;
+      line-height: 1;
+      flex-shrink: 0;
+    }
+
+    .focus-title {
+      font-size: 0.86rem;
+      font-weight: 700;
+      color: var(--text-main);
+      line-height: 1.25;
+      margin: 0;
+    }
+
+    .focus-desc {
+      font-size: 0.78rem;
+      color: #64748b;
+      line-height: 1.48;
+      margin: 0;
+    }
+
+    /* ==========================================================================
+       4. SECTION HEADINGS & MINIMAL FILTER BAR
+       ========================================================================== */
+    .section-header {
+      text-align: center;
+      margin-bottom: 2.75rem;
+    }
+
+    .section-title {
+      font-size: 2.35rem;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      margin-bottom: 0.6rem;
+      text-wrap: balance;
+    }
+
+    .no-break {
+      white-space: nowrap;
+      display: inline-block;
+    }
+
+    .section-desc {
+      font-size: 1.05rem;
+      color: var(--text-muted);
+      max-width: 650px;
+      margin: 0 auto;
+    }
+
+    /* ==========================================================================
+       5. DETAILED APP SHOWCASE CARDS (MINIMALIST WHITE)
+       ========================================================================== */
+    .apps-stack {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2.25rem;
+      margin-bottom: 6rem;
+      align-items: stretch;
+    }
+
+    .app-card {
+      background: #ffffff;
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-xl);
+      padding: 2.4rem 2rem;
+      box-shadow: var(--shadow-card);
+      transition: var(--transition);
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      overflow: hidden;
+      min-width: 0;
+    }
+
+    .app-card:hover {
+      box-shadow: var(--shadow-hover);
+      border-color: #cbd5e1;
+    }
+
+    /* App Card Header */
+    .app-card-top {
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 1.5rem;
+      padding-bottom: 1.25rem;
+      border-bottom: 1px solid var(--border-light);
+      width: 100%;
+    }
+
+    .app-header-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1.25rem;
+      flex-wrap: wrap;
+      width: 100%;
+    }
+
+    .app-identity {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      min-width: 0;
+    }
+
+    .app-icon-box {
+      width: 52px;
+      height: 52px;
+      border-radius: 13px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.6rem;
+      border: 1.5px solid var(--border-light);
+      box-shadow: var(--shadow-subtle);
+      flex-shrink: 0;
+      overflow: hidden;
+      background: #ffffff;
+    }
+
+    .app-icon-box img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      border-radius: inherit;
+    }
+
+    .app-name {
+      font-family: var(--font-display);
+      font-size: clamp(1.45rem, 2.2vw, 1.8rem);
+      font-weight: 800;
+      line-height: 1.2;
+      letter-spacing: -0.02em;
+      color: var(--text-main);
+      white-space: nowrap;
+      word-break: keep-all;
+      overflow-wrap: normal;
+      hyphens: none;
+    }
+
+    .app-actions {
+      display: flex;
+      align-items: center;
+      gap: 0.55rem;
+      flex-shrink: 0;
+      white-space: nowrap;
+    }
+
+    .app-actions .btn {
+      padding: 0.42rem 0.88rem;
+      font-size: 0.8rem;
+      font-weight: 600;
+      border-radius: 8px;
+      gap: 0.4rem;
+      line-height: 1.35;
+    }
+
+    .app-actions .btn svg {
+      width: 13px;
+      height: 13px;
+      flex-shrink: 0;
+    }
+
+    .app-tagline {
+      font-size: 0.95rem;
+      line-height: 1.5;
+      color: var(--text-muted);
+      margin-top: 0.85rem;
+      font-weight: 500;
+      width: 100%;
+      overflow-wrap: break-word;
+    }
+
+    /* App Content */
+    .app-content {
+      margin-bottom: 1.75rem;
+      flex-grow: 1;
+      min-width: 0;
+    }
+
+    .app-description {
+      font-size: 0.95rem;
+      color: #334155;
+      line-height: 1.68;
+      margin-bottom: 1.25rem;
+      overflow-wrap: break-word;
+      word-break: break-word;
+    }
+
+    .feature-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .feature-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.65rem;
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      line-height: 1.52;
+      overflow-wrap: break-word;
+      word-break: break-word;
+      min-width: 0;
+    }
+
+    .feature-item>div {
+      min-width: 0;
+      overflow-wrap: break-word;
+      word-break: break-word;
+    }
+
+    .feature-item svg {
+      width: 17px;
+      height: 17px;
+      color: #0f172a;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .feature-item strong {
+      color: var(--text-main);
+      font-weight: 600;
+    }
+
+    /* ==========================================================================
+       6. FIVE SCREENSHOTS SHOWCASE (REAL PHONE FRAMES & CAROUSEL)
+       ========================================================================== */
+    .screens-container {
+      margin-top: auto;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--border-light);
+    }
+
+    .screens-title-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.85rem;
+    }
+
+    .screens-title {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+
+    .screens-hint {
+      font-size: 0.74rem;
+      font-weight: 600;
+      color: var(--text-faint);
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+
+    .screens-grid {
+      display: flex;
+      gap: 0.85rem;
+      overflow-x: auto;
+      padding: 0.35rem 0.2rem 0.85rem;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .screens-grid::-webkit-scrollbar {
+      height: 5px;
+    }
+
+    .screens-grid::-webkit-scrollbar-track {
+      background: #f1f5f9;
+      border-radius: var(--radius-full);
+    }
+
+    .screens-grid::-webkit-scrollbar-thumb {
+      background: #cbd5e1;
+      border-radius: var(--radius-full);
+    }
+
+    .screens-grid::-webkit-scrollbar-thumb:hover {
+      background: #94a3b8;
+    }
+
+    .screen-card {
+      flex: 0 0 115px;
+      scroll-snap-align: start;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background: transparent;
+      border: none;
+      box-shadow: none;
+      transition: var(--transition);
+      position: relative;
+    }
+
+    .screen-card:hover {
+      transform: translateY(-5px);
+    }
+
+    /* Realistic Phone Frame - No fake top bar! */
+    .screen-device {
+      width: 100%;
+      aspect-ratio: 9 / 19.5;
+      background: #0f172a;
+      border-radius: 16px;
+      border: 2px solid #e2e8f0;
+      overflow: hidden;
+      position: relative;
+      box-shadow: 0 4px 14px rgba(15, 23, 42, 0.08);
+      transition: var(--transition);
+    }
+
+    .screen-card:hover .screen-device {
+      border-color: var(--text-main);
+      box-shadow: 0 14px 28px -4px rgba(15, 23, 42, 0.2);
+    }
+
+    .screen-device img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top center;
+      display: block;
+      transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .screen-card:hover .screen-device img {
+      transform: scale(1.05);
+    }
+
+    .screen-hover-badge {
+      position: absolute;
+      bottom: 8px;
+      left: 50%;
+      transform: translateX(-50%) translateY(8px);
+      background: rgba(15, 23, 42, 0.88);
+      backdrop-filter: blur(4px);
+      color: #ffffff;
+      border-radius: var(--radius-full);
+      padding: 0.25rem 0.55rem;
+      font-size: 0.6rem;
+      font-weight: 600;
+      opacity: 0;
+      transition: var(--transition);
+      box-shadow: var(--shadow-card);
+      z-index: 10;
+      white-space: nowrap;
+      pointer-events: none;
+    }
+
+    .screen-card:hover .screen-hover-badge {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+
+    .screen-caption-footer {
+      width: 100%;
+      margin-top: 0.5rem;
+      text-align: center;
+    }
+
+    .screen-idx {
+      font-family: var(--font-code);
+      font-size: 0.6rem;
+      font-weight: 700;
+      color: var(--text-faint);
+      text-transform: uppercase;
+      margin-bottom: 2px;
+    }
+
+    .screen-label {
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--text-main);
+      line-height: 1.25;
+      text-align: center;
+    }
+
+    /* ==========================================================================
+       6. LIGHTBOX & DOWNLOAD MODALS (MINIMALIST WHITE)
+       ========================================================================== */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.45);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s ease;
+    }
+
+    .modal-backdrop.open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .modal-box {
+      background: #ffffff;
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-xl);
+      width: 100%;
+      max-width: 780px;
+      max-height: 90vh;
+      overflow-y: auto;
+      padding: 2.5rem;
+      position: relative;
+      box-shadow: var(--shadow-modal);
+      transform: scale(0.96);
+      transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .modal-backdrop.open .modal-box {
+      transform: scale(1);
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 1.25rem;
+      right: 1.25rem;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: var(--bg-subtle);
+      border: 1px solid var(--border-light);
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .modal-close:hover {
+      background: #e2e8f0;
+      color: var(--text-main);
+    }
+
+    /* Redesigned Portrait Smartphone Lightbox */
+    .screenshot-modal-box {
+      max-width: 880px !important;
+      padding: 2.25rem !important;
+      border-radius: var(--radius-xl);
+      background: #ffffff;
+      max-height: 94vh;
+      overflow-y: auto;
+    }
+
+    .screenshot-modal-layout {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 2.25rem;
+      align-items: center;
+    }
+
+    @media (max-width: 768px) {
+      .screenshot-modal-layout {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+      }
+    }
+
+    .modal-phone-wrapper {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.65rem;
+      position: relative;
+    }
+
+    .modal-phone-frame {
+      width: 290px;
+      aspect-ratio: 9 / 19.5;
+      max-height: 72vh;
+      border-radius: 28px;
+      overflow: hidden;
+      background: #0f172a;
+      border: 3.5px solid #1e293b;
+      box-shadow: 0 20px 50px -10px rgba(15, 23, 42, 0.35);
+      position: relative;
+      flex-shrink: 0;
+    }
+
+    .modal-phone-frame img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top center;
+      display: block;
+      transition: opacity 0.2s ease;
+    }
+
+    .modal-nav-btn {
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      border: 1.5px solid var(--border-light);
+      background: #ffffff;
+      color: var(--text-main);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      box-shadow: var(--shadow-card);
+      transition: var(--transition);
+      flex-shrink: 0;
+    }
+
+    .modal-nav-btn:hover {
+      background: var(--text-main);
+      color: #ffffff;
+      border-color: var(--text-main);
+      transform: scale(1.08);
+    }
+
+    .modal-info-panel {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      text-align: left;
+    }
+
+    .modal-screen-counter {
+      font-family: var(--font-code);
+      font-size: 0.76rem;
+      font-weight: 700;
+      color: var(--text-faint);
+      background: var(--bg-subtle);
+      padding: 0.25rem 0.65rem;
+      border-radius: var(--radius-full);
+      border: 1px solid var(--border-light);
+    }
+
+    .modal-screen-heading {
+      font-family: var(--font-display);
+      font-size: 1.45rem;
+      font-weight: 800;
+      color: var(--text-main);
+      line-height: 1.25;
+      margin-bottom: 0.75rem;
+    }
+
+    .modal-screen-text {
+      font-size: 0.92rem;
+      color: var(--text-muted);
+      line-height: 1.65;
+      margin-bottom: 1.5rem;
+    }
+
+    .modal-thumbs-row {
+      display: flex;
+      gap: 0.5rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .modal-thumb-btn {
+      width: 46px;
+      aspect-ratio: 9 / 19.5;
+      border-radius: 6px;
+      overflow: hidden;
+      border: 2px solid var(--border-light);
+      cursor: pointer;
+      padding: 0;
+      background: #0f172a;
+      transition: var(--transition);
+      opacity: 0.6;
+    }
+
+    .modal-thumb-btn img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .modal-thumb-btn.active {
+      border-color: var(--brand-accent);
+      opacity: 1;
+      transform: scale(1.08);
+      box-shadow: 0 4px 10px rgba(37, 99, 235, 0.25);
+    }
+
+    .modal-thumb-btn:hover {
+      opacity: 1;
+    }
+
+    .modal-keyboard-hint {
+      font-size: 0.76rem;
+      color: var(--text-faint);
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+
+    .modal-keyboard-hint kbd {
+      background: var(--bg-subtle);
+      border: 1px solid var(--border-light);
+      border-radius: 4px;
+      padding: 0.15rem 0.4rem;
+      font-family: var(--font-code);
+      font-size: 0.7rem;
+      color: var(--text-muted);
+    }
+
+    /* Download Modal */
+    .dl-modal-box {
+      max-width: 500px;
+    }
+
+    .dl-header {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .dl-icon {
+      width: 50px;
+      height: 50px;
+      border-radius: 12px;
+      background: var(--bg-subtle);
+      border: 1px solid var(--border-light);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+    }
+
+    .dl-stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.75rem;
+      background: var(--bg-subtle);
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-md);
+      padding: 0.9rem;
+      margin: 1.25rem 0;
+      text-align: center;
+    }
+
+    .dl-stat-name {
+      font-size: 0.72rem;
+      font-family: var(--font-code);
+      color: var(--text-faint);
+      text-transform: uppercase;
+    }
+
+    .dl-stat-val {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--text-main);
+      margin-top: 2px;
+    }
+
+    .dl-bar-wrap {
+      margin: 1.25rem 0;
+      display: none;
+    }
+
+    .dl-bar {
+      width: 100%;
+      height: 8px;
+      background: #e2e8f0;
+      border-radius: var(--radius-full);
+      overflow: hidden;
+    }
+
+    .dl-bar-fill {
+      width: 0%;
+      height: 100%;
+      background: #0f172a;
+      border-radius: var(--radius-full);
+      transition: width 0.18s ease;
+    }
+
+    .dl-bar-labels {
+      font-family: var(--font-code);
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-top: 0.4rem;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    /* Toast Notification */
+    .toast {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      background: #0f172a;
+      color: #ffffff;
+      padding: 0.8rem 1.4rem;
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-modal);
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+      font-size: 0.88rem;
+      font-weight: 600;
+      z-index: 2000;
+      transform: translateY(100px);
+      opacity: 0;
+      transition: var(--transition);
+    }
+
+    .toast.show {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    /* ==========================================================================
+       9. FOOTER (MINIMALIST WITH CONTACT DETAILS)
+       ========================================================================== */
+    .footer {
+      padding: 4.5rem 0 3.75rem;
+      border-top: 1px solid var(--border-light);
+      background: #ffffff;
+      position: relative;
+    }
+
+    .footer-inner {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      gap: 1.4rem;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .footer-message {
+      text-align: center;
+    }
+
+    .footer-thankyou {
+      font-family: var(--font-display);
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: var(--text-main);
+      margin-bottom: 0.4rem;
+    }
+
+    .footer-subtext {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+    }
+
+    .footer-contacts {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      gap: 0.85rem;
+      margin-top: 0.25rem;
+    }
+
+    .footer-contact-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.55rem;
+      padding: 0.55rem 1.15rem;
+      background: #ffffff;
+      border: 1px solid var(--border-light);
+      border-radius: var(--radius-full);
+      color: var(--text-main);
+      font-size: 0.86rem;
+      font-weight: 600;
+      text-decoration: none;
+      box-shadow: var(--shadow-subtle);
+      transition: var(--transition);
+    }
+
+    .contact-pill-icon {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .contact-pill-icon svg {
+      width: 17px;
+      height: 17px;
+      display: block;
+    }
+
+    /* Authentic Vibrant Brand Colors for Icons */
+    .contact-pill-icon.icon-phone,
+    .contact-pill-icon.icon-phone svg {
+      color: #16a34a !important;
+      stroke: #16a34a !important;
+    }
+
+    .contact-pill-icon.icon-email,
+    .contact-pill-icon.icon-email svg {
+      color: #ea4335 !important;
+      stroke: #ea4335 !important;
+    }
+
+    .contact-pill-icon.icon-linkedin,
+    .contact-pill-icon.icon-linkedin svg {
+      color: #0a66c2 !important;
+      fill: #0a66c2 !important;
+    }
+
+    .contact-pill-icon.icon-facebook,
+    .contact-pill-icon.icon-facebook svg {
+      color: #1877f2 !important;
+      fill: #1877f2 !important;
+    }
+
+    /* Individual pill hover interactions maintaining colourful icons */
+    .footer-contact-pill:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(15, 23, 42, 0.08);
+      color: var(--text-main);
+    }
+
+    .footer-contact-pill:hover .contact-pill-icon {
+      transform: scale(1.18);
+    }
+
+    .footer-contact-pill.pill-phone:hover {
+      border-color: #86efac;
+      background: #f0fdf4;
+    }
+
+    .footer-contact-pill.pill-email:hover {
+      border-color: #fca5a5;
+      background: #fef2f2;
+    }
+
+    .footer-contact-pill.pill-linkedin:hover {
+      border-color: #93c5fd;
+      background: #f0f7ff;
+    }
+
+    .footer-contact-pill.pill-facebook:hover {
+      border-color: #93c5fd;
+      background: #f0f7ff;
+    }
+
+    .footer-copyright {
+      font-size: 0.8rem;
+      color: var(--text-faint);
+      margin-top: 0.5rem;
+      letter-spacing: 0.01em;
+    }
+
+    /* ==========================================================================
+       10. RESPONSIVE BREAKPOINTS (COMPREHENSIVE MOBILE OPTIMIZATION)
+       ========================================================================== */
+    @media (max-width: 1024px) {
+      .apps-stack {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-side-by-side {
+        grid-template-columns: 1fr;
+        gap: 2.5rem;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        padding: 0 1.1rem;
+      }
+
+      .hero-card,
+      .app-card {
+        padding: 1.75rem 1.25rem;
+      }
+
+      .hero-meta-strip {
+        justify-content: center;
+      }
+
+      .hero-name {
+        font-size: clamp(1.8rem, 7vw, 2.4rem);
+        text-align: center;
+      }
+
+      .hero-section {
+        padding: 2rem 0 2.5rem;
+      }
+
+      .section-title {
+        font-size: 1.85rem;
+        text-wrap: balance;
+      }
+
+      .section-desc {
+        font-size: 0.95rem;
+      }
+
+      .app-name {
+        font-size: 1.35rem;
+      }
+
+      .app-tagline {
+        font-size: 0.88rem;
+      }
+
+      .navbar {
+        margin-bottom: 1.5rem;
+      }
+
+      .nav-inner {
+        padding: 0.5rem 1rem;
+      }
+
+      .nav-links {
+        gap: 1.1rem;
+      }
+
+      .nav-link {
+        font-size: 0.82rem;
+      }
+
+      .modal-box {
+        padding: 1.5rem 1rem;
+      }
+
+      .apps-stack {
+        gap: 1.5rem;
+        margin-bottom: 4rem;
+      }
+    }
+
+    @media (max-width: 680px) {
+      .avatar-wrapper {
+        width: 155px;
+        height: 155px;
+      }
+
+      .hero-meta-strip {
+        justify-content: center;
+      }
+
+      .focus-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-side-by-side {
+        gap: 2rem;
+      }
+
+      .hero-bio {
+        font-size: 0.87rem;
+      }
+
+      .hero-tagline {
+        font-size: 0.92rem;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .screens-grid {
+        display: flex;
+        gap: 0.65rem;
+        overflow-x: auto;
+        padding-bottom: 0.5rem;
+        scroll-snap-type: x mandatory;
+        -webkit-overflow-scrolling: touch;
+      }
+
+      .screen-card {
+        flex: 0 0 100px;
+        scroll-snap-align: start;
+      }
+
+      .section-title {
+        font-size: clamp(1.35rem, 4vw, 1.55rem);
+        text-wrap: balance;
+      }
+
+      .section-header {
+        margin-bottom: 2rem;
+      }
+    }
+
+    @media (max-width: 540px) {
+      .app-header-row {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.75rem;
+      }
+
+      .app-actions {
+        width: auto;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      .app-actions .btn {
+        width: auto;
+        flex: 0 0 auto;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .container {
+        padding: 0 0.85rem;
+      }
+
+      .section-title {
+        font-size: clamp(1.2rem, 5vw, 1.4rem);
+        text-wrap: balance;
+      }
+
+      .hero-card {
+        padding: 1.5rem 1rem;
+      }
+
+      .app-card {
+        padding: 1.25rem 1rem;
+        border-radius: 18px;
+      }
+
+      .app-icon-box {
+        width: 46px;
+        height: 46px;
+      }
+
+      .app-name {
+        font-size: 1.3rem;
+      }
+
+      .app-description {
+        font-size: 0.86rem;
+      }
+
+      .feature-item {
+        font-size: 0.82rem;
+      }
+
+      .app-actions .btn {
+        padding: 0.42rem 0.78rem;
+        font-size: 0.78rem;
+        width: auto;
+        flex: 0 0 auto;
+      }
+
+      .footer {
+        padding: 3rem 0 2.5rem;
+      }
+
+      .footer-contacts {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .footer-contact-pill {
+        justify-content: center;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Subtle Minimal Background Grid -->
+  <div class="bg-grid-pattern" aria-hidden="true"></div>
+
+  <!-- Main Content Wrap -->
+  <div class="container">
+
+    <!-- DEVELOPER HERO SECTION -->
+    <section class="hero-section" id="profile">
+      <article class="hero-card">
+
+        <!-- Centered Developer Portrait Header -->
+        <div class="hero-avatar-center">
+          <div class="avatar-wrapper">
+            <div class="avatar-inner">
+              <img src="Photo.jpg" alt="Souvik Karmakar" class="avatar-img">
+            </div>
+            <div class="avatar-badge">
+              <span class="status-dot"></span>
+              <span>OPEN TO WORK</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Side-by-Side Content Columns -->
+        <div class="hero-side-by-side">
+
+          <!-- Left Column: Bio & Identity -->
+          <div class="hero-main-col">
+            <div class="hero-meta-strip">
+              <span class="meta-pill primary">Digital Project Manager</span>
+              <span class="meta-pill secondary">AI & Application Developer</span>
+              <span class="meta-pill">Open-Source AI & Tools</span>
+            </div>
+
+            <h1 class="hero-name">Souvik Karmakar</h1>
+
+            <div class="hero-tagline">
+              Turning ideas into practical digital solutions across AI-powered web development and Android applications.
+            </div>
+
+            <p class="hero-bio">
+              I am an adaptable and forward-thinking <strong>Digital Project Manager and AI & Application
+                Developer</strong>. Combining hands-on technical execution with background in <strong>digital project
+                management, business development, and digital marketing</strong>, I bridge strategy with functional
+              software. I actively build and deploy AI-enhanced web workflows and native Android apps, fueled by a
+              genuine curiosity for open-source AI models, developer ecosystems, and community-driven innovation.
+            </p>
+          </div>
+
+          <!-- Right Column: Active Focus & Technical Pursuits -->
+          <div class="hero-focus-col">
+            <div class="focus-header-row">
+              <span class="focus-section-title">Active Focus & Technical Pursuits</span>
+              <span class="focus-status-badge">● Active Execution</span>
+            </div>
+            <div class="focus-grid">
+              <div class="focus-card">
+                <div class="focus-card-header">
+                  <span class="focus-icon">⚡</span>
+                  <h4 class="focus-title">AI-Powered Web Development</h4>
+                </div>
+                <p class="focus-desc">Actively learning and executing modern web projects, focusing on practical tools,
+                  user experiences, and workflow automation.</p>
+              </div>
+
+              <div class="focus-card">
+                <div class="focus-card-header">
+                  <span class="focus-icon">📱</span>
+                  <h4 class="focus-title">Android Application Engineering</h4>
+                </div>
+                <p class="focus-desc">Developing Android applications while building hands-on experience across mobile
+                  interfaces, application logic, and API integrations.</p>
+              </div>
+
+              <div class="focus-card">
+                <div class="focus-card-header">
+                  <span class="focus-icon">🧠</span>
+                  <h4 class="focus-title">Open-Source AI Models & Tools</h4>
+                </div>
+                <p class="focus-desc">Exploring open-source AI models and tools to understand their capabilities,
+                  deployment requirements, and real-world applications.</p>
+              </div>
+
+              <div class="focus-card">
+                <div class="focus-card-header">
+                  <span class="focus-icon">🌐</span>
+                  <h4 class="focus-title">Ecosystem & Community Innovation</h4>
+                </div>
+                <p class="focus-desc">Following and contributing to the open-source AI ecosystem with a keen interest in
+                  community-driven innovation and accessible technology.</p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </article>
+    </section>
+
+    <!-- PROJECT SHOWCASE -->
+    <section id="showcase">
+      <div class="section-header" style="margin-bottom: 3.5rem;">
+        <h2 class="section-title">Please check out the apps <span class="no-break">I’ve worked on!&nbsp;🚀</span></h2>
+        <p class="section-desc">
+          Take them for a spin, tap through the interactive screens, or grab an APK to test drive what I’ve been cooking
+          <span class="no-break">up!&nbsp;✨</span>
+        </p>
+      </div>
+
+      <!-- APPS STACK -->
+      <div class="apps-stack">
+
+        <!-- ====================================================================
+             APP 1: PYAARAI
+             ==================================================================== -->
+        <article class="app-card" data-category="ai-nlp" id="app-pyaarai">
+
+          <div class="app-card-top">
+            <div class="app-header-row">
+              <div class="app-identity">
+                <div class="app-icon-box" style="border-color:var(--pyaar-border);"><img src="Pyaarai/Logo.jpg"
+                    alt="PyaarAI Logo"></div>
+                <h3 class="app-name">PyaarAI</h3>
+              </div>
+              <div class="app-actions">
+                <a href="app%20download/Pyaarai.apk" download="Pyaarai.apk" class="btn btn-dark"
+                  onclick="showToast('Downloading Pyaarai.apk')">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                    <polyline points="7 10 12 15 17 10" />
+                    <line x1="12" y1="15" x2="12" y2="3" />
+                  </svg>
+                  <span>Download APK</span>
+                </a>
+                <a href="pyaarai.html" class="btn btn-outline">
+                  <span>Learn More</span>
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                    <path d="M5 12h14" />
+                    <path d="M12 5l7 7-7 7" />
+                  </svg>
+                </a>
+              </div>
+            </div>
+            <div class="app-tagline">Romantic AI Companion, Urdu/Hindi Poet & Tactile Scrapbook Studio</div>
+          </div>
+
+          <div class="app-content">
+            <p class="app-description">
+              <strong>PyaarAI</strong> is a native Android application engineered to celebrate and deepen modern Indian
+              relationships.
+              Instead of generic conversational wrappers, PyaarAI combines culturally grounded classical Urdu/Hindi
+              <em>Shayari</em>
+              with tactile scrapbook journaling and live physical merchandise simulation. Built on a zero-hallucination
+              prompt engine with
+              anti-duplication fingerprinting in local SQLite Room.
+            </p>
+
+            <ul class="feature-list">
+              <li class="feature-item">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                  <path
+                    d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" />
+                </svg>
+                <div><strong>AI Poetry & Shayari Studio:</strong> 6 dynamic personas (Shayari with strict Qaafiya &
+                  Radeef, 2-paragraph letters, 5-R psychological apologies, and physical inscriptions).</div>
+              </li>
+              <li class="feature-item">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                  <path
+                    d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" />
+                </svg>
+                <div><strong>Physical Gift Mockup Studio:</strong> Dynamically renders poetry onto 3D simulated ceramic
+                  coffee mugs, heavyweight t-shirts, and acrylic glass frames with dynamic font scaling.</div>
+              </li>
+              <li class="feature-item">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                  <path
+                    d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" />
+                </svg>
+                <div><strong>Tactile Scrapbook Timeline:</strong> 3D interactive Polaroid cards with washi tape accents
+                  that flip on tap to reveal private scribbles, paired with procedural torn paper canvas.</div>
+              </li>
+              <li class="feature-item">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                  <path
+                    d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" />
+                </svg>
+                <div><strong>Anti-Duplication & WhatsApp Sharing:</strong> In-memory Compose rasterization shares styled
+                  parchment cards directly into WhatsApp with automatic 3-item self-pruning disk cache.</div>
+              </li>
+            </ul>
+          </div>
+
+          <!-- 5 SCREENSHOT PLACEHOLDERS -->
+          <div class="screens-container">
+            <div class="screens-title-row">
+              <div class="screens-title">Screenshots</div>
+              <div class="screens-hint"><span>5 Screens</span> <span>•</span> <span>Click to expand 🔍</span></div>
+            </div>
+
+            <div class="screens-grid">
+              <!-- Screen 1 -->
+              <div class="screen-card" onclick="openScreenshotModal('pyaarai', 0)">
+                <div class="screen-device">
+                  <img src="Pyaarai/Screen 1.jpg" alt="AI Poetry Studio" loading="lazy">
+                  <div class="screen-hover-badge">🔍 Expand</div>
+                </div>
+                <div class="screen-caption-footer">
+                  <div class="screen-idx">01</div>
+                  <div class="screen-label">AI Poetry Studio</div>
+                </div>
+              </div>
+
+              <!-- Screen 2 -->
+              <div class="screen-card" onclick="openScreenshotModal('pyaarai', 1)">
+                <div class="screen-device">
+                  <img src="Pyaarai/Screen 2.jpg" alt="Studio Controls" loading="lazy">
+                  <div class="screen-hover-badge">🔍 Expand</div>
+                </div>
+                <div class="screen-caption-footer">
+                  <div class="screen-idx">02</div>
+                  <div class="screen-label">Studio Controls</div>
+                </div>
+              </div>
+
+              <!-- Screen 3 -->
+              <div class="screen-card" onclick="openScreenshotModal('pyaarai', 2)">
+                <div class="screen-device">
+                  <img src="Pyaarai/Screen 3.jpg" alt="3D Scrapbook" loading="lazy">
+                  <div class="screen-hover-badge">🔍 Expand</div>
+                </div>
+                <div class="screen-caption-footer">
+                  <div class="screen-idx">03</div>
+                  <div class="screen-label">3D Scrapbook</div>
+                </div>
+              </div>
+
+              <!-- Screen 4 -->
+              <div class="screen-card" onclick="openScreenshotModal('pyaarai', 3)">
+                <div class="screen-device">
+                  <img src="Pyaarai/Screen 4.jpg" alt="Gift Atelier" loading="lazy">
+                  <div class="screen-hover-badge">🔍 Expand</div>
+                </div>
+                <div class="screen-caption-footer">
+                  <div class="screen-idx">04</div>
+                  <div class="screen-label">Gift Atelier</div>
+                </div>
+              </div>
+
+              <!-- Screen 5 -->
+              <div class="screen-card" onclick="openScreenshotModal('pyaarai', 4)">
+                <div class="screen-device">
+                  <img src="Pyaarai/Screen 5.jpg" alt="Inscription Studio" loading="lazy">
+                  <div class="screen-hover-badge">🔍 Expand</div>
+                </div>
+                <div class="screen-caption-footer">
+                  <div class="screen-idx">05</div>
+                  <div class="screen-label">Inscription Studio</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </article>
+
+        <!-- ====================================================================
+             APP 2: Redacted (NOIR DETECTIVE SIMULATION)
+             ==================================================================== -->
+        <article class="app-card" data-category="game-narrative" id="app-redacted">
+
+          <div class="app-card-top">
+            <div class="app-header-row">
+              <div class="app-identity">
+                <div class="app-icon-box" style="border-color:var(--redacted-border);"><img src="Redacted/Logo.jpg"
+                    alt="Redacted Logo"></div>
+                <h3 class="app-name">Redacted</h3>
+              </div>
+              <div class="app-actions">
+                <a href="app%20download/Redacted.apk" download="Redacted.apk" class="btn btn-dark"
+                  onclick="showToast('Downloading Redacted.apk')">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                    <polyline points="7 10 12 15 17 10" />
+                    <line x1="12" y1="15" x2="12" y2="3" />
+                  </svg>
+                  <span>Download APK</span>
+                </a>
+                <a href="redacted.html" class="btn btn-outline">
+                  <span>Learn More</span>
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                    <path d="M5 12h14" />
+                    <path d="M12 5l7 7-7 7" />
+                  </svg>
+                </a>
+              </div>
+            </div>
+            <div class="app-tagline">1980–2010 Retro Noir Murder Mystery Simulation & Procedural Case Engine</div>
+          </div>
+
+          <div class="app-content">
+            <p class="app-description">
+              <strong>Redacted</strong> is an immersive retro noir detective simulation game set in the gritty
+              analog-to-digital transition era
+              (1980–2010), featuring evocative Kolkata and Bengal backdrops (Salt Lake Cyber Hub, Lalbazar Detective
+              Bureau).
+              The app blends classic Golden Age fair-play deduction (Sherlock Holmes, Byomkesh Bakshi, Agatha Christie)
+              with live generative AI roleplay,
+              wrapped inside a tactile manila case folder aesthetic with zero-asset real-time PCM audio synthesis.
+            </p>
+
+            <ul class="feature-list">
+              <li class="feature-item">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                  <path
+                    d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" />
+                </svg>
+                <div><strong>6-Genre Era Matrix:</strong> Procedurally generates murder webs across Cold War Espionage,
+                  BBS & Early Internet, Corporate Raiders, and Analog-to-Digital transitions.</div>
+              </li>
+              <li class="feature-item">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                  <path
+                    d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" />
+                </svg>
+                <div><strong>20 Action Point (AP) Economy:</strong> Manage limited AP between interrogations, body
+                  autopsies, room searches, and chemical forensics before the trail runs cold.</div>
+              </li>
+              <li class="feature-item">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                  <path
+                    d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" />
+                </svg>
+                <div><strong>Dynamic AI Interrogation Engine:</strong> Suspects lie, deflect suspicion, experience
+                  stress surges, and protect secrets. Includes bilingual বাংলা & English.</div>
+              </li>
+              <li class="feature-item">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                  <path
+                    d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" />
+                </svg>
+                <div><strong>Zero-Asset PCM Audio Engine:</strong> Custom software synthesizer using Android's low-level
+                  AudioTrack generating real-time sine waves for typewriter clicks (800Hz).</div>
+              </li>
+            </ul>
+          </div>
+
+          <!-- 5 SCREENSHOT PLACEHOLDERS -->
+          <div class="screens-container">
+            <div class="screens-title-row">
+              <div class="screens-title">Screenshots</div>
+              <div class="screens-hint"><span>5 Screens</span> <span>•</span> <span>Click to expand 🔍</span></div>
+            </div>
+
+            <div class="screens-grid">
+              <!-- Screen 1 -->
+              <div class="screen-card" onclick="openScreenshotModal('redacted', 0)">
+                <div class="screen-device">
+                  <img src="Redacted/Screen 1.jpg" alt="Case Dossier" loading="lazy">
+                  <div class="screen-hover-badge">🔍 Expand</div>
+                </div>
+                <div class="screen-caption-footer">
+                  <div class="screen-idx">01</div>
+                  <div class="screen-label">Case Dossier</div>
+                </div>
+              </div>
+
+              <!-- Screen 2 -->
+              <div class="screen-card" onclick="openScreenshotModal('redacted', 1)">
+                <div class="screen-device">
+                  <img src="Redacted/Screen 2.jpg" alt="Suspect Registry" loading="lazy">
+                  <div class="screen-hover-badge">🔍 Expand</div>
+                </div>
+                <div class="screen-caption-footer">
+                  <div class="screen-idx">02</div>
+                  <div class="screen-label">Suspect Registry</div>
+                </div>
+              </div>
+
+              <!-- Screen 3 -->
+              <div class="screen-card" onclick="openScreenshotModal('redacted', 2)">
+                <div class="screen-device">
+                  <img src="Redacted/Screen 3.jpg" alt="Interrogation Room" loading="lazy">
+                  <div class="screen-hover-badge">🔍 Expand</div>
+                </div>
+                <div class="screen-caption-footer">
+                  <div class="screen-idx">03</div>
+                  <div class="screen-label">Interrogation Room</div>
+                </div>
+              </div>
+
+              <!-- Screen 4 -->
+              <div class="screen-card" onclick="openScreenshotModal('redacted', 3)">
+                <div class="screen-device">
+                  <img src="Redacted/Screen 4.jpg" alt="Crime Scene & Lab" loading="lazy">
+                  <div class="screen-hover-badge">🔍 Expand</div>
+                </div>
+                <div class="screen-caption-footer">
+                  <div class="screen-idx">04</div>
+                  <div class="screen-label">Crime Scene & Lab</div>
+                </div>
+              </div>
+
+              <!-- Screen 5 -->
+              <div class="screen-card" onclick="openScreenshotModal('redacted', 4)">
+                <div class="screen-device">
+                  <img src="Redacted/Screen 5.jpg" alt="Accusation & Truth" loading="lazy">
+                  <div class="screen-hover-badge">🔍 Expand</div>
+                </div>
+                <div class="screen-caption-footer">
+                  <div class="screen-idx">05</div>
+                  <div class="screen-label">Accusation & Truth</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </article>
+
+        <!-- ====================================================================
+             APP 3: SOUVIKEQ (AUDIO EQUALIZER & AI SOUND ENGINEER)
+             ==================================================================== -->
+        <article class="app-card" data-category="audio-dsp" id="app-souvikeq">
+
+          <div class="app-card-top">
+            <div class="app-header-row">
+              <div class="app-identity">
+                <div class="app-icon-box" style="border-color:var(--eq-border);"><img src="SouvikEQ/Logo.jpg"
+                    alt="SouvikEQ Logo"></div>
+                <h3 class="app-name">SouvikEQ</h3>
+              </div>
+              <div class="app-actions">
+                <a href="app%20download/SouvikEQ.apk" download="SouvikEQ.apk" class="btn btn-dark"
+                  onclick="showToast('Downloading SouvikEQ.apk')">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                    <polyline points="7 10 12 15 17 10" />
+                    <line x1="12" y1="15" x2="12" y2="3" />
+                  </svg>
+                  <span>Download APK</span>
+                </a>
+                <a href="souvikeq.html" class="btn btn-outline">
+                  <span>Learn More</span>
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                    <path d="M5 12h14" />
+                    <path d="M12 5l7 7-7 7" />
+                  </svg>
+                </a>
+              </div>
+            </div>
+            <div class="app-tagline">Broadcast-Grade System-Wide Audio Equalizer & AI Sound Engineer</div>
+          </div>
+
+          <div class="app-content">
+            <p class="app-description">
+              <strong>SouvikEQ</strong> bridges the gap between complex broadcast acoustic engineering tools and
+              everyday consumer listening.
+              Instead of forcing users to guess arbitrary decibels across unfamiliar frequencies, SouvikEQ combines a
+              tactile hardware mixing desk
+              aesthetic with system-wide DSP interception (Spotify, YouTube, Tidal) and an embedded <strong>AI Sound
+                Engineer</strong> that converts
+              subjective natural language into surgical acoustic curves.
+            </p>
+
+            <ul class="feature-list">
+              <li class="feature-item">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                  <path
+                    d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" />
+                </svg>
+                <div><strong>System-Wide DSP Interception:</strong> Listens to Android broadcasts to master audio from
+                  Spotify, YouTube Music, and Apple Music globally.</div>
+              </li>
+              <li class="feature-item">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                  <path
+                    d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" />
+                </svg>
+                <div><strong>5-Band Faders & Cubic Bézier Curve:</strong> Real-time parametric frequency curve computed
+                  dynamically from 20 Hz to 20 kHz with 32-band spectrum analyzer.</div>
+              </li>
+              <li class="feature-item">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                  <path
+                    d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" />
+                </svg>
+                <div><strong>The AI Sound Engineer (M2M Protocol):</strong> Real-time streaming regex parser extracts
+                  preset blocks and injects gains directly into hardware DSP.</div>
+              </li>
+              <li class="feature-item">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                  <path
+                    d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" />
+                </svg>
+                <div><strong>3D Spatializer & Sub-Bass Exciter:</strong> Employs HRTF algorithms to expand headphone
+                  soundstage without muddying midrange vocals.</div>
+              </li>
+            </ul>
+          </div>
+
+          <!-- 5 SCREENSHOT PLACEHOLDERS -->
+          <div class="screens-container">
+            <div class="screens-title-row">
+              <div class="screens-title">Screenshots</div>
+              <div class="screens-hint"><span>5 Screens</span> <span>•</span> <span>Click to expand 🔍</span></div>
+            </div>
+
+            <div class="screens-grid">
+              <!-- Screen 1 -->
+              <div class="screen-card" onclick="openScreenshotModal('souvikeq', 0)">
+                <div class="screen-device">
+                  <img src="SouvikEQ/Screen 1.jpg" alt="Bézier EQ Desk" loading="lazy">
+                  <div class="screen-hover-badge">🔍 Expand</div>
+                </div>
+                <div class="screen-caption-footer">
+                  <div class="screen-idx">01</div>
+                  <div class="screen-label">Bézier EQ Desk</div>
+                </div>
+              </div>
+
+              <!-- Screen 2 -->
+              <div class="screen-card" onclick="openScreenshotModal('souvikeq', 1)">
+                <div class="screen-device">
+                  <img src="SouvikEQ/Screen 2.jpg" alt="Spectrum Visualizer" loading="lazy">
+                  <div class="screen-hover-badge">🔍 Expand</div>
+                </div>
+                <div class="screen-caption-footer">
+                  <div class="screen-idx">02</div>
+                  <div class="screen-label">Spectrum Visualizer</div>
+                </div>
+              </div>
+
+              <!-- Screen 3 -->
+              <div class="screen-card" onclick="openScreenshotModal('souvikeq', 2)">
+                <div class="screen-device">
+                  <img src="SouvikEQ/Screen 3.jpg" alt="AI Sound Engineer" loading="lazy">
+                  <div class="screen-hover-badge">🔍 Expand</div>
+                </div>
+                <div class="screen-caption-footer">
+                  <div class="screen-idx">03</div>
+                  <div class="screen-label">AI Sound Engineer</div>
+                </div>
+              </div>
+
+              <!-- Screen 4 -->
+              <div class="screen-card" onclick="openScreenshotModal('souvikeq', 3)">
+                <div class="screen-device">
+                  <img src="SouvikEQ/Screen 4.jpg" alt="3D FX Spatializer" loading="lazy">
+                  <div class="screen-hover-badge">🔍 Expand</div>
+                </div>
+                <div class="screen-caption-footer">
+                  <div class="screen-idx">04</div>
+                  <div class="screen-label">3D FX Spatializer</div>
+                </div>
+              </div>
+
+              <!-- Screen 5 -->
+              <div class="screen-card" onclick="openScreenshotModal('souvikeq', 4)">
+                <div class="screen-device">
+                  <img src="SouvikEQ/Screen 5.jpg" alt="Presets Dashboard" loading="lazy">
+                  <div class="screen-hover-badge">🔍 Expand</div>
+                </div>
+                <div class="screen-caption-footer">
+                  <div class="screen-idx">05</div>
+                  <div class="screen-label">Presets Dashboard</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </article>
+
+        <!-- ====================================================================
+             APP 4: PARCHHAI (AI STREET CHRONICLE ENGINE)
+             ==================================================================== -->
+        <article class="app-card" data-category="geo-spatial" id="app-parchhai">
+
+          <div class="app-card-top">
+            <div class="app-header-row">
+              <div class="app-identity">
+                <div class="app-icon-box" style="border-color:var(--parchhai-border);"><img src="Parchhai/Logo.jpg"
+                    alt="Parchhai Logo"></div>
+                <h3 class="app-name">Parchhai</h3>
+              </div>
+              <div class="app-actions">
+                <a href="app%20download/Parchhai.apk" download="Parchhai.apk" class="btn btn-dark"
+                  onclick="showToast('Downloading Parchhai.apk')">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                    <polyline points="7 10 12 15 17 10" />
+                    <line x1="12" y1="15" x2="12" y2="3" />
+                  </svg>
+                  <span>Download APK</span>
+                </a>
+                <a href="parchhai.html" class="btn btn-outline">
+                  <span>Learn More</span>
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                    <path d="M5 12h14" />
+                    <path d="M12 5l7 7-7 7" />
+                  </svg>
+                </a>
+              </div>
+            </div>
+            <div class="app-tagline">AI Street Chronicle Engine & Living Historical Vault ("Shadows of the Past")</div>
+          </div>
+
+          <div class="app-content">
+            <p class="app-description">
+              <strong>Parchhai</strong> resurrects the hidden street history, forgotten colonial police blotters, royal
+              conspiracies, and bizarre underworld syndicates
+              tied directly to the exact soil beneath the user's feet. Built with open-source OSMDroid cartography and a
+              strict
+              <strong>Zero-Hallucination Evidence Pipeline</strong> (pre-retrieving real Wikipedia geo-archives and
+              verified news before calling the LLM at locked 0.3 temperature),
+              narrated in the theatrical rhythm of 13th-century <em>Dastangoi</em> oral storytelling.
+            </p>
+
+            <ul class="feature-list">
+              <li class="feature-item">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                  <path
+                    d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" />
+                </svg>
+                <div><strong>Single-Pointer Dynamic Cartography:</strong> High-performance dark-mode OpenStreetMap
+                  (OSMDroid) with unified dynamic pointer and zero API costs.</div>
+              </li>
+              <li class="feature-item">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                  <path
+                    d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" />
+                </svg>
+                <div><strong>Zero-Hallucination Pipeline:</strong> Enforces minimum 3-source evidence threshold; refuses
+                  to fabricate fake history on barren terrain.</div>
+              </li>
+              <li class="feature-item">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                  <path
+                    d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" />
+                </svg>
+                <div><strong>Spiciness Meter (1 to 10) & Physical Anchors:</strong> Categorizes chronicles across 3
+                  epochs with real physical street anchor cues.</div>
+              </li>
+              <li class="feature-item">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                  <path
+                    d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" />
+                </svg>
+                <div><strong>Dastangoi "Ask AI" Ghost Chat:</strong> Interrogate historical witnesses in English or
+                  Hindi, backed by regex offline fallbacks.</div>
+              </li>
+            </ul>
+          </div>
+
+          <!-- 5 SCREENSHOT PLACEHOLDERS -->
+          <div class="screens-container">
+            <div class="screens-title-row">
+              <div class="screens-title">Screenshots</div>
+              <div class="screens-hint"><span>5 Screens</span> <span>•</span> <span>Click to expand 🔍</span></div>
+            </div>
+
+            <div class="screens-grid">
+              <!-- Screen 1 -->
+              <div class="screen-card" onclick="openScreenshotModal('parchhai', 0)">
+                <div class="screen-device">
+                  <img src="Parchhai/Screen 1.jpg" alt="Live Street Map" loading="lazy">
+                  <div class="screen-hover-badge">🔍 Expand</div>
+                </div>
+                <div class="screen-caption-footer">
+                  <div class="screen-idx">01</div>
+                  <div class="screen-label">Live Street Map</div>
+                </div>
+              </div>
+
+              <!-- Screen 2 -->
+              <div class="screen-card" onclick="openScreenshotModal('parchhai', 1)">
+                <div class="screen-device">
+                  <img src="Parchhai/Screen 2.jpg" alt="Street Dossier" loading="lazy">
+                  <div class="screen-hover-badge">🔍 Expand</div>
+                </div>
+                <div class="screen-caption-footer">
+                  <div class="screen-idx">02</div>
+                  <div class="screen-label">Street Dossier</div>
+                </div>
+              </div>
+
+              <!-- Screen 3 -->
+              <div class="screen-card" onclick="openScreenshotModal('parchhai', 2)">
+                <div class="screen-device">
+                  <img src="Parchhai/Screen 3.jpg" alt="Story Reader" loading="lazy">
+                  <div class="screen-hover-badge">🔍 Expand</div>
+                </div>
+                <div class="screen-caption-footer">
+                  <div class="screen-idx">03</div>
+                  <div class="screen-label">Story Reader</div>
+                </div>
+              </div>
+
+              <!-- Screen 4 -->
+              <div class="screen-card" onclick="openScreenshotModal('parchhai', 3)">
+                <div class="screen-device">
+                  <img src="Parchhai/Screen 4.jpg" alt="AI Story Guide" loading="lazy">
+                  <div class="screen-hover-badge">🔍 Expand</div>
+                </div>
+                <div class="screen-caption-footer">
+                  <div class="screen-idx">04</div>
+                  <div class="screen-label">AI Story Guide</div>
+                </div>
+              </div>
+
+              <!-- Screen 5 -->
+              <div class="screen-card" onclick="openScreenshotModal('parchhai', 4)">
+                <div class="screen-device">
+                  <img src="Parchhai/Screen 5.jpg" alt="Archival Vault" loading="lazy">
+                  <div class="screen-hover-badge">🔍 Expand</div>
+                </div>
+                <div class="screen-caption-footer">
+                  <div class="screen-idx">05</div>
+                  <div class="screen-label">Archival Vault</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </article>
+
+      </div>
+    </section>
+  </div><!-- /container -->
+
+  <!-- MINIMALIST THANK YOU & CONTACT FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-inner">
+        <div class="footer-message">
+          <p class="footer-thankyou">Thank you for checking out my page! ✨</p>
+          <p class="footer-subtext">Hope you enjoyed exploring the apps — have a wonderful day!</p>
+        </div>
+
+        <!-- Contact Details Bar -->
+        <div class="footer-contacts">
+          <!-- Phone -->
+          <a href="tel:+918481841368" class="footer-contact-pill pill-phone" title="Call Souvik">
+            <span class="contact-pill-icon icon-phone">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path
+                  d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
+              </svg>
+            </span>
+            <span class="contact-pill-text">+91 84818 41368</span>
+          </a>
+
+          <!-- Email -->
+          <a href="mailto:souvik.k0@gmail.com" class="footer-contact-pill pill-email" title="Email Souvik">
+            <span class="contact-pill-icon icon-email">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+                <polyline points="22,6 12,13 2,6" />
+              </svg>
+            </span>
+            <span class="contact-pill-text">souvik.k0@gmail.com</span>
+          </a>
+
+          <!-- LinkedIn -->
+          <a href="https://www.linkedin.com/in/souvik0/" target="_blank" rel="noopener noreferrer"
+            class="footer-contact-pill pill-linkedin" title="Souvik's LinkedIn">
+            <span class="contact-pill-icon icon-linkedin">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor">
+                <path
+                  d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.46 10.9v8.37H9.2V10.9H6.46M7.83 6.64a1.64 1.64 0 1 0 0 3.28 1.64 1.64 0 0 0 0-3.28z" />
+              </svg>
+            </span>
+            <span class="contact-pill-text">LinkedIn</span>
+          </a>
+
+          <!-- Facebook -->
+          <a href="https://www.facebook.com/souvik.karmakar.14" target="_blank" rel="noopener noreferrer"
+            class="footer-contact-pill pill-facebook" title="Souvik's Facebook">
+            <span class="contact-pill-icon icon-facebook">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor">
+                <path
+                  d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z" />
+              </svg>
+            </span>
+            <span class="contact-pill-text">Facebook</span>
+          </a>
+        </div>
+
+        <div class="footer-copyright">
+          © 2026 Souvik Karmakar • Digital Project Manager &amp; AI / Application Developer
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ==========================================================================
+       SCREENSHOT LIGHTBOX MODAL (PORTRAIT PHONE WITH PREV/NEXT)
+       ========================================================================== -->
+  <div class="modal-backdrop" id="screenshot-modal" onclick="closeModalOnBackdrop(event, this)">
+    <div class="modal-box screenshot-modal-box" role="dialog" aria-modal="true" aria-labelledby="modal-screen-title">
+      <button class="modal-close" onclick="closeModal('screenshot-modal')" aria-label="Close Preview">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <line x1="18" y1="6" x2="6" y2="18" />
+          <line x1="6" y1="6" x2="18" y2="18" />
+        </svg>
+      </button>
+
+      <div class="screenshot-modal-layout">
+        <!-- Phone Device Viewport with Prev/Next Controls -->
+        <div class="modal-phone-wrapper">
+          <button class="modal-nav-btn modal-prev-btn" onclick="navScreenshot(-1)" aria-label="Previous Screenshot">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <path d="M15 18l-6-6 6-6" />
+            </svg>
+          </button>
+
+          <div class="modal-phone-frame">
+            <img id="modal-screen-img" src="" alt="Screenshot">
+          </div>
+
+          <button class="modal-nav-btn modal-next-btn" onclick="navScreenshot(1)" aria-label="Next Screenshot">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <path d="M9 18l6-6-6-6" />
+            </svg>
+          </button>
+        </div>
+
+        <!-- Meta / Info Panel -->
+        <div class="modal-info-panel">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:0.75rem;">
+            <span class="badge badge-primary" id="modal-app-tag">App Preview</span>
+            <span class="modal-screen-counter" id="modal-screen-counter">1 of 5</span>
+          </div>
+
+          <h3 id="modal-screen-title" class="modal-screen-heading">Screenshot Title</h3>
+
+          <p id="modal-screen-caption" class="modal-screen-text">
+            Detailed description of this functional screenshot.
+          </p>
+
+          <!-- 5 Screen Thumbnails Navigation -->
+          <div class="modal-thumbs-row" id="modal-thumbs-container">
+            <!-- Injected via JS -->
+          </div>
+
+          <div class="modal-keyboard-hint">
+            <span>Tip: Use</span> <kbd>←</kbd> <kbd>→</kbd> <span>arrows or swipe to browse screens</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       DOWNLOAD MODAL
+       ========================================================================== -->
+  <div class="modal-backdrop" id="download-modal" onclick="closeModalOnBackdrop(event, this)">
+    <div class="modal-box dl-modal-box" role="dialog" aria-modal="true">
+      <button class="modal-close" onclick="closeModal('download-modal')" aria-label="Close Dialog">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <line x1="18" y1="6" x2="6" y2="18" />
+          <line x1="6" y1="6" x2="18" y2="18" />
+        </svg>
+      </button>
+
+      <div class="dl-header">
+        <div class="dl-icon" id="dl-icon">📱</div>
+        <div>
+          <h3 style="font-size:1.35rem; color:var(--text-main);" id="dl-app-name">Application Name</h3>
+          <div style="font-size:0.82rem; color:var(--text-faint); font-family:var(--font-code);" id="dl-package">
+            com.example.app</div>
+        </div>
+      </div>
+
+      <div class="dl-stats">
+        <div>
+          <div class="dl-stat-name">Version</div>
+          <div class="dl-stat-val" id="dl-version">v1.0.0</div>
+        </div>
+        <div>
+          <div class="dl-stat-name">Size</div>
+          <div class="dl-stat-val" id="dl-size">18 MB</div>
+        </div>
+        <div>
+          <div class="dl-stat-name">Target OS</div>
+          <div class="dl-stat-val" id="dl-os">Android 8.0+</div>
+        </div>
+      </div>
+
+      <p style="font-size:0.88rem; color:var(--text-muted); line-height:1.6; margin-bottom:1rem;">
+        Direct APK release verified against modern Android SDK targets. Includes ProGuard minification, SQLite cascade
+        integrity, and zero-permission telemetry.
+      </p>
+
+      <!-- Simulated Download Progress Bar -->
+      <div class="dl-bar-wrap" id="dl-progress-wrap">
+        <div class="dl-bar">
+          <div class="dl-bar-fill" id="dl-progress-fill"></div>
+        </div>
+        <div class="dl-bar-labels">
+          <span id="dl-status-label">Downloading APK binary...</span>
+          <span id="dl-percent">0%</span>
+        </div>
+      </div>
+
+      <div style="display:flex; gap:0.75rem; margin-top:1.25rem;">
+        <button class="btn btn-dark" style="flex:1;" id="dl-start-btn" onclick="triggerSimulatedDownload()">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+            <polyline points="7 10 12 15 17 10" />
+            <line x1="12" y1="15" x2="12" y2="3" />
+          </svg>
+          <span>Start Download (APK)</span>
+        </button>
+        <button class="btn btn-outline" onclick="copyPackageName()">
+          <span>Copy Package</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOAST PILL -->
+  <div class="toast" id="toast-pill" role="status" aria-live="polite">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2.5">
+      <polyline points="20 6 9 17 4 12" />
+    </svg>
+    <span id="toast-msg">Copied to clipboard!</span>
+  </div>
+
+  <!-- JAVASCRIPT -->
+  <script>
+    // 1. Lightbox Modal (Portrait Phone with Prev/Next Navigation)
+    const APP_SCREENS = {
+      'pyaarai': [
+        { src: 'Pyaarai/Screen 1.jpg', title: '1. Relationship Dashboard & AI Studio', label: 'AI Poetry Studio', caption: 'Real-time relationship pulse, days together tracker, and classical Devanagari Hindi & Urdu Shayari generator adhering to classical Qaafiya and Radeef meter.' },
+        { src: 'Pyaarai/Screen 2.jpg', title: '2. Shayari & Poetry Studio Controls', label: 'Studio Controls', caption: 'Fine-grained poetry controls, category switcher, language selection (Hinglish/Urdu), and dynamic temperature tuning for authentic emotional resonance.' },
+        { src: 'Pyaarai/Screen 3.jpg', title: '3. Tactile 3D Scrapbook & Memory Lane', label: 'Memory Lane', caption: 'Interactive Polaroid cards with washi tape accents and procedural torn-paper canvas that flip in 3D to reveal private relationship memories.' },
+        { src: 'Pyaarai/Screen 4.jpg', title: '4. Couple\'s Gift Atelier & Merch Visualizer', label: 'Gift Atelier', caption: 'Dynamic 3D product visualizer rendering custom couplets onto cylindrical ceramic coffee mugs, graphic t-shirts, and acrylic keepsake frames.' },
+        { src: 'Pyaarai/Screen 5.jpg', title: '5. Gift Customization & Inscription Studio', label: 'Inscription Studio', caption: 'Color palette picker, typography scaling, and live text alignment tools engineered specifically for physical merchandise geometries.' }
+      ],
+      'redacted': [
+        { src: 'Redacted/Screen 1.jpg', title: '1. Classified Manila Case Dossier', label: 'Case Dossier', caption: 'Confidential homicide dossier set in 1980–2010 Kolkata, featuring top-secret evidence stamps, victim autopsy report, and classified narrative backstory.' },
+        { src: 'Redacted/Screen 2.jpg', title: '2. Suspect Dossier & Profile Registry', label: 'Suspect Registry', caption: 'Detailed suspect roster tracking verified alibis, hidden motives, private secrets, and background connections across Kolkata backdrops.' },
+        { src: 'Redacted/Screen 3.jpg', title: '3. Live Interrogation & Emotion Engine', label: 'Interrogation Room', caption: 'Conversational AI roleplay where suspects react dynamically based on stress surges, guilt level, and evidence confrontation (-1 AP per question).' },
+        { src: 'Redacted/Screen 4.jpg', title: '4. Forensic Ballistics & Crime Scene Search', label: 'Crime Scene & Lab', caption: '5-second simulated chemical, ballistic, and digital turnaround that analyzes discovered clues and extracts the decisive smoking gun.' },
+        { src: 'Redacted/Screen 5.jpg', title: '5. Formal Accusation & Truth Breakdown', label: 'Accusation & Truth', caption: 'Keyword matching algorithm evaluates player deduction, reveals the full factual sequence of events, and awards XP for detective rank advancement.' }
+      ],
+      'souvikeq': [
+        { src: 'SouvikEQ/Screen 1.jpg', title: '1. Studio Parametric Mixing Desk', label: 'Mixing Desk', caption: 'Tactile 5-band vertical faders (60Hz, 230Hz, 910Hz, 3.6kHz, 14kHz) with -12dB to +12dB range and real-time Continuous Cubic Bézier response curve.' },
+        { src: 'SouvikEQ/Screen 2.jpg', title: '2. 32-Band Neon Spectrum Visualizer', label: 'Spectrum Visualizer', caption: 'Top-mounted neon frequency spectrum analyzer displaying real-time acoustic harmonics across low, mid, and high frequencies with standby states.' },
+        { src: 'SouvikEQ/Screen 3.jpg', title: '3. The AI Sound Engineer Consultation', label: 'AI Sound Engineer', caption: 'Conversational acoustic companion interviewing listener about gear and genre, translating subjective natural language into machine DSP protocols.' },
+        { src: 'SouvikEQ/Screen 4.jpg', title: '4. 3D Spatializer & Sub-Bass Exciter', label: '3D FX Spatializer', caption: 'Head-Related Transfer Function (HRTF) virtualizer expanding headphone stereo soundstages paired with psychoacoustic sub-bass harmonic exciters.' },
+        { src: 'SouvikEQ/Screen 5.jpg', title: '5. Dual-Column Box Presets Dashboard', label: 'Presets Dashboard', caption: 'Dual-column management separating custom and AI-mastered presets from curated studio profiles (Vocal Clarity Surgeon, Phonk & Drift, Lofi).' }
+      ],
+      'parchhai': [
+        { src: 'Parchhai/Screen 1.jpg', title: '1. Dark-Mode OpenStreetMap Cartography', label: 'Live Street Map', caption: 'Hardware-accelerated OSMDroid map featuring a unified dynamic single-pointer engine, GPS location discovery, and anywhere pin-dropping.' },
+        { src: 'Parchhai/Screen 2.jpg', title: '2. Street Dossier & Multi-Epoch Timeline', label: 'Street Dossier', caption: 'Chronological street history classified into 3 distinct eras (Colonial 1750s–1947, Underworld 1947–1990s, Digital Age 2000s–Present).' },
+        { src: 'Parchhai/Screen 3.jpg', title: '3. Full Story Reader & Spiciness Meter', label: 'Story Reader', caption: 'Distraction-free reading dialog with physical street anchors (real architectural cues), Wikipedia source citations, and Spiciness Scores (1–10).' },
+        { src: 'Parchhai/Screen 4.jpg', title: '4. Dastangoi "Ask AI" Ghost Chat', label: 'AI Story Guide', caption: 'Slide-up interactive interrogation sheet inspired by 13th-century Dastangoi oral storytelling, backed by offline regex fallback logic.' },
+        { src: 'Parchhai/Screen 5.jpg', title: '5. Offline Archival Vault & Reading Room', label: 'Archival Vault', caption: 'Persistent Room DB storage for bookmarked historical chronicles with era filters and full-text offline search.' }
+      ]
+    };
+
+    let currentAppKey = '';
+    let currentScreenIndex = 0;
+
+    function openScreenshotModal(appKey, screenIndex) {
+      currentAppKey = appKey;
+      currentScreenIndex = screenIndex || 0;
+      renderActiveModalScreen();
+      document.getElementById('screenshot-modal').classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function renderActiveModalScreen() {
+      const screens = APP_SCREENS[currentAppKey];
+      if (!screens || !screens[currentScreenIndex]) return;
+      const s = screens[currentScreenIndex];
+
+      const appNames = {
+        'pyaarai': 'PyaarAI',
+        'redacted': 'Redacted Detective',
+        'souvikeq': 'SouvikEQ Studio',
+        'parchhai': 'Parchhai'
+      };
+
+      document.getElementById('modal-app-tag').textContent = (appNames[currentAppKey] || currentAppKey) + ' • Interface Preview';
+      document.getElementById('modal-screen-counter').textContent = (currentScreenIndex + 1) + ' of ' + screens.length;
+      document.getElementById('modal-screen-title').textContent = s.title;
+      document.getElementById('modal-screen-caption').textContent = s.caption;
+
+      const imgEl = document.getElementById('modal-screen-img');
+      imgEl.src = s.src;
+      imgEl.alt = s.title;
+
+      // Render thumbnail buttons
+      const thumbsContainer = document.getElementById('modal-thumbs-container');
+      thumbsContainer.innerHTML = screens.map((item, idx) => `
+        <button class="modal-thumb-btn ${idx === currentScreenIndex ? 'active' : ''}" onclick="goToScreen(${idx})" aria-label="Go to screen ${idx + 1}">
+          <img src="${item.src}" alt="Thumb ${idx + 1}">
+        </button>
+      `).join('');
+    }
+
+    function navScreenshot(direction) {
+      const screens = APP_SCREENS[currentAppKey];
+      if (!screens) return;
+      currentScreenIndex = (currentScreenIndex + direction + screens.length) % screens.length;
+      renderActiveModalScreen();
+    }
+
+    function goToScreen(idx) {
+      currentScreenIndex = idx;
+      renderActiveModalScreen();
+    }
+
+    window.addEventListener('keydown', (e) => {
+      const modal = document.getElementById('screenshot-modal');
+      if (modal && modal.classList.contains('open')) {
+        if (e.key === 'ArrowLeft') navScreenshot(-1);
+        if (e.key === 'ArrowRight') navScreenshot(1);
+      }
+    });
+
+    // 2. Download Modal Hub (Real APK Link)
+    let currentPkg = '';
+    let currentApkPath = '';
+
+    function openDownloadModal(appName, version, size, os, pkg, icon, apkPath) {
+      const modal = document.getElementById('download-modal');
+      document.getElementById('dl-app-name').textContent = appName;
+      document.getElementById('dl-version').textContent = version;
+      document.getElementById('dl-size').textContent = size;
+      document.getElementById('dl-os').textContent = os;
+      document.getElementById('dl-package').textContent = pkg;
+
+      const iconEl = document.getElementById('dl-icon');
+      if (icon && (icon.includes('.jpg') || icon.includes('.png'))) {
+        iconEl.innerHTML = `<img src="${icon}" alt="${appName}" style="width:100%; height:100%; object-fit:cover; border-radius:10px;">`;
+      } else {
+        iconEl.textContent = icon;
+      }
+
+      currentPkg = pkg;
+      currentApkPath = apkPath || ('app download/' + appName + '.apk');
+
+      document.getElementById('dl-progress-wrap').style.display = 'none';
+      document.getElementById('dl-progress-fill').style.width = '0%';
+      document.getElementById('dl-start-btn').disabled = false;
+      document.getElementById('dl-start-btn').querySelector('span').textContent = 'Start Download (APK)';
+
+      modal.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function triggerSimulatedDownload() {
+      const progressWrap = document.getElementById('dl-progress-wrap');
+      const progressFill = document.getElementById('dl-progress-fill');
+      const percentLabel = document.getElementById('dl-percent');
+      const statusLabel = document.getElementById('dl-status-label');
+      const startBtn = document.getElementById('dl-start-btn');
+
+      progressWrap.style.display = 'block';
+      startBtn.disabled = true;
+      startBtn.querySelector('span').textContent = 'Downloading...';
+
+      let progress = 0;
+      const interval = setInterval(() => {
+        progress += Math.floor(Math.random() * 20) + 12;
+        if (progress >= 100) {
+          progress = 100;
+          clearInterval(interval);
+          progressFill.style.width = '100%';
+          percentLabel.textContent = '100%';
+          statusLabel.textContent = 'Build verification successful! APK Ready.';
+          startBtn.querySelector('span').textContent = 'Download Complete ✓';
+          showToast('Downloading: ' + currentPkg + '.apk');
+
+          if (currentApkPath) {
+            const dlLink = document.createElement('a');
+            dlLink.href = encodeURI(currentApkPath);
+            dlLink.download = currentApkPath.split('/').pop();
+            document.body.appendChild(dlLink);
+            dlLink.click();
+            document.body.removeChild(dlLink);
+          }
+        } else {
+          progressFill.style.width = progress + '%';
+          percentLabel.textContent = progress + '%';
+        }
+      }, 140);
+    }
+
+    function copyPackageName() {
+      if (navigator.clipboard) {
+        navigator.clipboard.writeText(currentPkg);
+        showToast('Copied package: ' + currentPkg);
+      }
+    }
+
+    // 3. Close Modals
+    function closeModal(modalId) {
+      document.getElementById(modalId).classList.remove('open');
+      document.body.style.overflow = 'auto';
+    }
+
+    function closeModalOnBackdrop(event, backdropEl) {
+      if (event.target === backdropEl) {
+        backdropEl.classList.remove('open');
+        document.body.style.overflow = 'auto';
+      }
+    }
+
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        document.querySelectorAll('.modal-backdrop.open').forEach(modal => modal.classList.remove('open'));
+        document.body.style.overflow = 'auto';
+      }
+    });
+
+    // 4. Toast
+    function showToast(message) {
+      const toast = document.getElementById('toast-pill');
+      document.getElementById('toast-msg').textContent = message;
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 3000);
+    }
+  </script>
+</body>
+
+</html>
