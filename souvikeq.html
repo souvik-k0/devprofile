@@ -1362,6 +1362,215 @@
         font-size: 0.85rem;
       }
     }
+
+    /* ==========================================================================
+       ULTRA-NARROW SCREENS — 21:9 phones & very small viewports (≤360px)
+       ========================================================================== */
+    @media (max-width: 360px) {
+      /* Tighter outer padding */
+      .page-wrapper {
+        padding: 0.9rem 0.65rem;
+      }
+      .top-nav {
+        padding: 0.45rem 0.6rem;
+      }
+      .nav-container {
+        gap: 0.35rem;
+      }
+      .nav-logo {
+        width: 28px;
+        height: 28px;
+      }
+      .nav-title {
+        font-size: 0.82rem;
+      }
+
+      /* Hero section */
+      .hero-section {
+        padding: 1rem 0.85rem;
+        border-radius: 12px;
+        margin-bottom: 1rem;
+      }
+      .hero-app-icon {
+        width: 46px;
+        height: 46px;
+        border-radius: 12px;
+      }
+      .hero-title {
+        font-size: clamp(1.3rem, 9vw, 1.65rem);
+      }
+      .hero-subtitle {
+        font-size: 0.84rem;
+      }
+
+      /* Badge row — allow wrapping, avoid horizontal overflow */
+      .hero-badges {
+        gap: 0.25rem;
+        margin-bottom: 0.75rem;
+        flex-wrap: wrap;
+      }
+      .badge {
+        font-size: 0.6rem;
+        padding: 0.12rem 0.42rem;
+        white-space: nowrap;
+      }
+
+      /* Action buttons — shrink and stack cleanly */
+      .hero-actions {
+        gap: 0.45rem;
+        margin-top: 1.1rem;
+        padding-top: 1rem;
+        flex-wrap: wrap;
+      }
+      .hero-actions .btn-primary,
+      .hero-actions .btn-outline {
+        padding: 0.45rem 0.85rem;
+        font-size: 0.76rem;
+        gap: 0.35rem;
+      }
+
+      /* Specs grid — single column on tiny screens */
+      .specs-grid {
+        grid-template-columns: 1fr;
+        gap: 0.55rem;
+        padding: 0.65rem;
+        margin-top: 1rem;
+      }
+      .spec-label {
+        font-size: 0.64rem;
+      }
+      .spec-value {
+        font-size: 0.8rem;
+      }
+
+      /* Content sections */
+      .content-section {
+        padding: 1rem 0.85rem;
+        border-radius: 12px;
+        margin-bottom: 1rem;
+      }
+      .section-title {
+        font-size: 1.1rem;
+      }
+      .section-desc {
+        font-size: 0.82rem;
+      }
+      .section-header {
+        margin-bottom: 1.25rem;
+      }
+
+      /* Feature cards */
+      .feature-card {
+        padding: 1rem;
+      }
+      .feature-title {
+        font-size: 0.92rem;
+      }
+      .feature-text {
+        font-size: 0.79rem;
+      }
+      .feature-icon-box {
+        width: 36px;
+        height: 36px;
+        font-size: 1.1rem;
+        margin-bottom: 0.75rem;
+      }
+
+      /* Highlight callout box */
+      .highlight-box {
+        padding: 0.85rem 1rem;
+      }
+      .highlight-box h4 {
+        font-size: 0.92rem;
+      }
+      .highlight-box p {
+        font-size: 0.79rem;
+      }
+
+      /* Code / ASCII block */
+      .code-container {
+        font-size: 0.62rem;
+        padding: 0.75rem 0.65rem;
+        border-radius: 10px;
+      }
+
+      /* Tables — always show scroll hint */
+      .table-hint {
+        display: flex;
+      }
+      .table-container {
+        font-size: 0.74rem;
+        border-radius: 10px;
+      }
+      th, td {
+        padding: 0.55rem 0.7rem;
+        font-size: 0.74rem;
+      }
+
+      /* Screenshots grid (parchhai / souvikeq) */
+      .screenshots-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 0.5rem;
+      }
+      .screenshot-card {
+        padding: 0.4rem;
+        border-radius: 10px;
+      }
+      .screenshot-label {
+        font-size: 0.7rem;
+      }
+      .screenshot-sub {
+        font-size: 0.6rem;
+      }
+
+      /* Teaser video (pyaarai / redacted) */
+      .teaser-video-wrap {
+        margin: 0.75rem auto 0.25rem;
+      }
+      .teaser-video-frame {
+        border-radius: 10px;
+      }
+      .teaser-video-player {
+        border-radius: 10px;
+      }
+
+      /* Project nav footer */
+      .project-nav-section {
+        margin-top: 1rem;
+        padding-top: 0.75rem;
+      }
+      .project-nav-card {
+        padding: 0.5rem 0.65rem;
+        border-radius: 8px;
+      }
+      .nav-card-title {
+        font-size: 0.8rem;
+      }
+      .nav-card-desc {
+        font-size: 0.68rem;
+      }
+
+      /* Footer */
+      .footer {
+        padding: 2.25rem 0 1.75rem;
+      }
+      .footer-thankyou {
+        font-size: 1.1rem;
+      }
+      .footer-subtext {
+        font-size: 0.82rem;
+      }
+      .footer-contacts {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0.5rem;
+      }
+      .footer-contact-pill {
+        justify-content: center;
+        padding: 0.45rem 0.85rem;
+        font-size: 0.78rem;
+      }
+    }
   </style>
 </head>
 <body>
