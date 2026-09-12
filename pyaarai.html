@@ -395,69 +395,39 @@
       line-height: 1.6;
     }
 
-    /* Screenshots Gallery */
-    .screenshots-grid {
-      display: grid;
-      grid-template-columns: repeat(5, 1fr);
-      gap: 1rem;
-    }
-
-    .screenshot-card {
-      background: #ffffff;
-      border: 1.5px solid var(--border-light);
-      border-radius: 16px;
-      padding: 0.65rem;
-      text-align: center;
-      cursor: pointer;
-      transition: var(--transition);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      box-shadow: var(--shadow-subtle);
-    }
-
-    .screenshot-card:hover {
-      transform: translateY(-5px);
-      box-shadow: var(--shadow-hover);
-      border-color: var(--text-main);
-    }
-
-    .phone-mockup {
-      width: 100%;
-      aspect-ratio: 9 / 19.5;
-      background: #0f172a;
-      border: 1.5px solid var(--border-light);
-      border-radius: 12px;
-      overflow: hidden;
+    /* Teaser Video Showcase */
+    .teaser-video-wrap {
+      max-width: 880px;
+      margin: 1.5rem auto 0.5rem;
       position: relative;
-      margin-bottom: 0.75rem;
-      box-shadow: 0 4px 12px rgba(15, 23, 42, 0.1);
     }
 
-    .phone-mockup img {
+    .teaser-video-frame {
+      position: relative;
+      background: #090d16;
+      border-radius: var(--radius-xl);
+      border: 1px solid var(--border-light);
+      box-shadow: 0 16px 36px -12px rgba(15, 23, 42, 0.18), 0 0 0 1px rgba(15, 23, 42, 0.04);
+      overflow: hidden;
+      aspect-ratio: 16 / 9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: var(--transition);
+    }
+
+    .teaser-video-frame:hover {
+      box-shadow: 0 24px 48px -12px rgba(15, 23, 42, 0.25);
+    }
+
+    .teaser-video-player {
       width: 100%;
       height: 100%;
-      object-fit: cover;
-      object-position: top center;
+      object-fit: contain;
+      background: #000000;
+      border-radius: var(--radius-xl);
       display: block;
-      transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-
-    .screenshot-card:hover .phone-mockup img {
-      transform: scale(1.05);
-    }
-
-    .screenshot-label {
-      font-size: 0.85rem;
-      font-weight: 700;
-      color: var(--text-main);
-      margin-bottom: 0.2rem;
-      line-height: 1.3;
-    }
-
-    .screenshot-sub {
-      font-size: 0.72rem;
-      color: var(--text-muted);
+      outline: none;
     }
 
     /* Feature Cards */
@@ -1092,8 +1062,8 @@
        MOBILE OPTIMISATION — COMPREHENSIVE RESPONSIVE BREAKPOINTS
        ========================================================================== */
     @media (max-width: 992px) {
-      .screenshots-grid {
-        grid-template-columns: repeat(3, 1fr);
+      .feature-grid {
+        grid-template-columns: repeat(2, 1fr);
       }
     }
 
@@ -1190,9 +1160,14 @@
     }
 
     @media (max-width: 640px) {
-      .screenshots-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 0.75rem;
+      .teaser-video-wrap {
+        margin: 1rem auto 0.25rem;
+      }
+      .teaser-video-frame {
+        border-radius: 14px;
+      }
+      .teaser-video-player {
+        border-radius: 14px;
       }
       .hero-app-icon {
         width: 56px;
@@ -1240,19 +1215,6 @@
         padding: 1.25rem 1rem;
         border-radius: 14px;
         margin-bottom: 1.25rem;
-      }
-      .screenshots-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 0.6rem;
-      }
-      .screenshot-card {
-        padding: 0.5rem;
-      }
-      .screenshot-label {
-        font-size: 0.78rem;
-      }
-      .screenshot-sub {
-        font-size: 0.66rem;
       }
       .hero-title {
         font-size: clamp(1.5rem, 8vw, 2rem);
@@ -1418,9 +1380,9 @@
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="flex-shrink:0;"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
           <span>Download APK (18.0 MB)</span>
         </a>
-        <a href="#screenshots" class="btn-outline">
-          <span>📱</span>
-          <span>Screenshots (5)</span>
+        <a href="#teaser" class="btn-outline">
+          <span>🎬</span>
+          <span>Watch Teaser</span>
         </a>
         <a href="#architecture" class="btn-outline">
           <span>🏗️</span>
@@ -1457,58 +1419,20 @@
       </div>
     </section>
 
-    <!-- Screenshots Section -->
-    <section class="content-section" id="screenshots">
+    <!-- Teaser Video Section -->
+    <section class="content-section" id="teaser">
       <div class="section-header">
-        <div class="section-tag">High-Resolution Native Previews</div>
-        <h2 class="section-title">Application Screenshots</h2>
-        <p class="section-desc">Click any mobile screenshot below to inspect the interface layout and full-resolution visual design in the Lightbox viewer.</p>
+        <div class="section-tag">Official Teaser</div>
+        <h2 class="section-title">Experience PyaarAI in Motion 🎬</h2>
+        <p class="section-desc">Watch the live interface workflow, classical Urdu & Hindi Shayari generation, tactile 3D Polaroid flips, and real-time merchandise customization in action.</p>
       </div>
 
-      <div class="screenshots-grid">
-        <!-- 1 -->
-        <div class="screenshot-card" onclick="openLightbox(0)">
-          <div class="phone-mockup">
-            <img src="Pyaarai/Screen 1.jpg" alt="PyaarAI Screen 1" loading="lazy">
-          </div>
-          <div class="screenshot-label">1. Poetry Studio</div>
-          <div class="screenshot-sub">Classical Urdu & Hindi Shayari</div>
-        </div>
-
-        <!-- 2 -->
-        <div class="screenshot-card" onclick="openLightbox(1)">
-          <div class="phone-mockup">
-            <img src="Pyaarai/Screen 2.jpg" alt="PyaarAI Screen 2" loading="lazy">
-          </div>
-          <div class="screenshot-label">2. 3D Scrapbook</div>
-          <div class="screenshot-sub">Tactile Card Flips & Memories</div>
-        </div>
-
-        <!-- 3 -->
-        <div class="screenshot-card" onclick="openLightbox(2)">
-          <div class="phone-mockup">
-            <img src="Pyaarai/Screen 3.jpg" alt="PyaarAI Screen 3" loading="lazy">
-          </div>
-          <div class="screenshot-label">3. Merch Visualizer</div>
-          <div class="screenshot-sub">Curved Mugs, Shirts & Frames</div>
-        </div>
-
-        <!-- 4 -->
-        <div class="screenshot-card" onclick="openLightbox(3)">
-          <div class="phone-mockup">
-            <img src="Pyaarai/Screen 4.jpg" alt="PyaarAI Screen 4" loading="lazy">
-          </div>
-          <div class="screenshot-label">4. Couple Dossier</div>
-          <div class="screenshot-sub">Milestones & Preferences</div>
-        </div>
-
-        <!-- 5 -->
-        <div class="screenshot-card" onclick="openLightbox(4)">
-          <div class="phone-mockup">
-            <img src="Pyaarai/Screen 5.jpg" alt="PyaarAI Screen 5" loading="lazy">
-          </div>
-          <div class="screenshot-label">5. WhatsApp Share</div>
-          <div class="screenshot-sub">Direct Parchment Rasterization</div>
+      <div class="teaser-video-wrap">
+        <div class="teaser-video-frame">
+          <video class="teaser-video-player" controls playsinline preload="metadata">
+            <source src="Pyaarai/Pyaarai.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
         </div>
       </div>
     </section>
