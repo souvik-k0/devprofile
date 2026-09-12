@@ -1722,11 +1722,6 @@
         <p class="section-desc">Replacing arbitrary decibel slider guessing with interactive psychoacoustic consultation.</p>
       </div>
 
-      <div class="highlight-box">
-        <h4>Subjective-to-Objective Acoustic Translation</h4>
-        <p>Everyday music listeners know when their music lacks punch or when vocals sound muffled, but standard graphic equalizers force them to guess numbers like *+4 dB at 230 Hz* or *-2 dB at 3.6 kHz*. SouvikEQ's conversational AI acts as a live mastering engineer, diagnosing gear and genre to inject tuned parameters directly into the DSP hardware.</p>
-      </div>
-
       <div class="feature-grid" style="margin: 2rem 0;">
         <div class="feature-card">
           <div class="feature-icon-box">🎧</div>
@@ -1751,59 +1746,27 @@
           <h3 class="feature-title">Hands-Free Voice Input</h3>
           <p class="feature-text">Integrated `VoiceInputManager.kt` using Android 12+ on-device SpeechRecognizer, allowing listeners to tune sound effortlessly while listening to their tracks.</p>
         </div>
-      </div>
 
-      <div class="code-container">
-        <div class="code-header">
-          <span>Machine Protocol Schema</span>
-          <span>Regex Stream Extraction</span>
+        <div class="feature-card">
+          <div class="feature-icon-box">📈</div>
+          <h3 class="feature-title">Continuous Bézier Transfer Curve</h3>
+          <p class="feature-text">Computes a real-time cubic Bézier parametric transfer curve across the 20 Hz – 20 kHz human hearing spectrum with dynamic gradient fills and decibel grid guides.</p>
         </div>
-        <pre>
-&lt;&lt;&lt;PRESET_DATA
-{
-  "name": "Vocal Clarity Surgeon",
-  "tagline": "Mastered by AI Sound Engineer",
-  "bands": [-100, 150, 450, 200, -50],
-  "bassBoost": 100,
-  "virtualizer": 250
-}
-PRESET_DATA&gt;&gt;&gt;</pre>
+
+        <div class="feature-card">
+          <div class="feature-icon-box">🔊</div>
+          <h3 class="feature-title">3D Spatializer & Sub-Bass Exciter</h3>
+          <p class="feature-text">Employs Head-Related Transfer Function (HRTF) algorithms to expand stereo soundstage, paired with psychoacoustic sub-bass harmonic enhancement without digital clipping.</p>
+        </div>
       </div>
     </section>
 
-    <!-- DSP Architecture & System-Wide Interception -->
-    <section class="content-section" id="dsp-pipeline">
+    <!-- Calibrated Frequency Matrix -->
+    <section class="content-section" id="dsp-matrix">
       <div class="section-header">
-        <div class="section-tag">Audio Pipeline</div>
-        <h2 class="section-title">System-Wide Interception & DSP Architecture</h2>
-        <p class="section-desc">Low-latency Android AudioFX integration binding to device media playback.</p>
-      </div>
-
-      <div class="code-container">
-        <div class="code-header">
-          <span>Acoustic Architectural Flow</span>
-          <span>MVVM + UDF</span>
-        </div>
-        <pre>
-┌────────────────────────────────────────────────────────┐
-│                   Jetpack Compose UI                   │
-│   (EqualizerScreen, StudioFaders, BézierCurve, Visualizer)│
-└───────────────────────────▲────────────────────────────┘
-                            │ (Observes StateFlow)
-                            │ (Dispatches User Events)
-┌───────────────────────────┴────────────────────────────┐
-│                  EqualizerViewModel                    │
-│   - Holds EqualizerUiState (immutably)                 │
-│   - Coordinates Audio Engine, AI Engine & Presets      │
-└───────────▲───────────────────────────────▲────────────┘
-            │                               │
-┌───────────┴──────────────┐   ┌───────────┴─────────────┐
-│     EqualizerEngine      │   │     AiPresetEngine      │
-│  - Equalizer FX          │   │  - System Persona Prompt│
-│  - Virtualizer FX        │   │  - Protocol Parsing     │
-│  - BassBoost FX          │   │  - LLM REST Backend     │
-│  - Session Management    │   │  - VoiceInputManager    │
-└──────────────────────────┘   └─────────────────────────┘</pre>
+        <div class="section-tag">Acoustic Matrix</div>
+        <h2 class="section-title">Calibrated 5-Band Frequency Matrix</h2>
+        <p class="section-desc">Surgical decibel boost and cut specifications across key psychoacoustic frequency bands.</p>
       </div>
 
       <div class="table-container">
@@ -1846,6 +1809,42 @@ PRESET_DATA&gt;&gt;&gt;</pre>
       </div>
       <div class="table-hint">
         <span>← Swipe horizontally to view full technical table →</span>
+      </div>
+    </section>
+
+    <!-- DSP Architecture & System-Wide Interception -->
+    <section class="content-section" id="dsp-pipeline">
+      <div class="section-header">
+        <div class="section-tag">Audio Pipeline</div>
+        <h2 class="section-title">System-Wide Interception & DSP Architecture</h2>
+        <p class="section-desc">Low-latency Android AudioFX integration binding to device media playback.</p>
+      </div>
+
+      <div class="code-container">
+        <div class="code-header">
+          <span>Acoustic Architectural Flow</span>
+          <span>MVVM + UDF</span>
+        </div>
+        <pre>
+┌────────────────────────────────────────────────────────┐
+│                   Jetpack Compose UI                   │
+│   (EqualizerScreen, StudioFaders, BézierCurve, Visualizer)│
+└───────────────────────────▲────────────────────────────┘
+                            │ (Observes StateFlow)
+                            │ (Dispatches User Events)
+┌───────────────────────────┴────────────────────────────┐
+│                  EqualizerViewModel                    │
+│   - Holds EqualizerUiState (immutably)                 │
+│   - Coordinates Audio Engine, AI Engine & Presets      │
+└───────────▲───────────────────────────────▲────────────┘
+            │                               │
+┌───────────┴──────────────┐   ┌───────────┴─────────────┐
+│     EqualizerEngine      │   │     AiPresetEngine      │
+│  - Equalizer FX          │   │  - System Persona Prompt│
+│  - Virtualizer FX        │   │  - Protocol Parsing     │
+│  - BassBoost FX          │   │  - LLM REST Backend     │
+│  - Session Management    │   │  - VoiceInputManager    │
+└──────────────────────────┘   └─────────────────────────┘</pre>
       </div>
     </section>
 

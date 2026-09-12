@@ -1674,44 +1674,71 @@
           <h3 class="feature-title">Frictionless WhatsApp Card Export</h3>
           <p class="feature-text">In-memory hardware bitmap rasterization using Jetpack Compose GraphicsLayer. Shares beautifully styled parchment cards with torn edges straight into WhatsApp chats in one tap.</p>
         </div>
+
+        <div class="feature-card">
+          <div class="feature-icon-box" style="color: #7c3aed;">🧠</div>
+          <h3 class="feature-title">Anti-Duplication & Tone Learning</h3>
+          <p class="feature-text">Hashes recent outputs in Room DB to block repetitive AI tropes, while few-shot exemplar weighting trains future generations to match the couple's preferred intimacy cadence.</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon-box" style="color: #db2777;">🤝</div>
+          <h3 class="feature-title">5-R Psychological Conflict Repair</h3>
+          <p class="feature-text">Constructs emotionally intelligent apologies adhering to counseling principles (Recognize, Responsibility, Remorse, Repair, Recommit) to resolve friction sincerely.</p>
+        </div>
       </div>
     </section>
 
-    <!-- System Architecture -->
-    <section class="content-section" id="architecture">
+    <!-- App Usage Loop -->
+    <section class="content-section" id="usage-loop">
       <div class="section-header">
-        <div class="section-tag">Engineering Foundation</div>
-        <h2 class="section-title">System Architecture & Clean Flow</h2>
-        <p class="section-desc">Engineered strictly with Clean Architecture and Unidirectional Data Flow (UDF).</p>
+        <div class="section-tag">Interactive Lifecycle</div>
+        <h2 class="section-title">The PyaarAI App Usage Loop</h2>
+        <p class="section-desc">From couple onboarding and AI poetry generation to physical gift mockups and WhatsApp export.</p>
       </div>
 
       <div class="code-container">
         <div class="code-header">
-          <span>Clean Architecture Diagram</span>
-          <span>Kotlin / Android</span>
+          <span>User Journey</span>
+          <span>End-to-End Application Loop</span>
         </div>
         <pre>
-┌────────────────────────────────────────────────────────────────────────┐
-│                          PRESENTATION LAYER                            │
-│  Jetpack Compose • Material 3 • Custom Canvas • Navigation Component  │
-└───────────────────────────────────┬────────────────────────────────────┘
-                                    │ (Observes UI State / Sends Intents)
-                                    ▼
-┌────────────────────────────────────────────────────────────────────────┐
-│                            VIEWMODEL LAYER                             │
-│       Kotlin Coroutines • StateFlow • SharedFlow • UDF State Machine   │
-└───────────────────────────────────┬────────────────────────────────────┘
-                                    │ (Calls Domain & Data Repositories)
-                                    ▼
-┌────────────────────────────────────────────────────────────────────────┐
-│                               DATA LAYER                               │
-│  ┌───────────────────────────┐          ┌───────────────────────────┐  │
-│  │     Local Persistence     │          │    Remote & AI Engine     │  │
-│  │ • Room Database (v4)      │          │ • OkHttp 3 ConnectionPool │  │
-│  │ • DataStore Preferences   │          │ • DeepSeek Chat API       │  │
-│  │ • FileProvider Cache      │          │ • Streaming SSE Flow      │  │
-│  └───────────────────────────┘          └───────────────────────────┘  │
-└────────────────────────────────────────────────────────────────────────┘</pre>
++-----------------------------------------------------------------------------------+
+|                              PYAARAI APP USAGE LOOP                               |
+|                                                                                   |
+|  [ Couple Onboarding ] -> [ Relationship Pulse Dashboard ] -> [ Expression Studio ]|
+|  (Names, Anniv, Lang)      (Milestone Counter, Prompts)       (Shayari / Letter)  |
+|                                                                       |           |
+|                                                                       v           |
+|   +----------------------- CONTEXT & AI GENERATION ---------------------------+   |
+|   |  - Inject Couple Dossier (Names, Pet Names, Inside Jokes & Love Language) |   |
+|   |  - Anti-Duplication Filter (Hashes last 8 outputs to avoid cliché tropes) |   |
+|   |  - Few-Shot Exemplar Anchoring (Hearted memories guide emotional tone)    |   |
+|   |  - DeepSeek Chat Engine (Real-time SSE streaming with dynamic temperature)|   |
+|   +---------------------------------------------------------------------------+   |
+|                                       |                                           |
+|                                       v                                           |
+|   +----------------------- TACTILE CANVAS & REVIEW ---------------------------+   |
+|   |  - Jagged Torn-Paper Rendering (Configurable tear depth & paper noise)    |   |
+|   |  - Dynamic Vector Doodles (Hand-drawn hearts, stars, underlines parsed)   |   |
+|   +---------------------------------------------------------------------------+   |
+|                                       |                                           |
+|                   +-------------------+-------------------+                       |
+|                   v                                       v                       |
+|       [ Physical Gift Studio ]               [ Scrapbook & Social Share ]         |
+|   - 3D Curved Ceramic Mugs               - Interactive 3D Polaroid Flip Cards     |
+|   - Heavyweight Graphic T-Shirts         - Direct One-Tap WhatsApp Image Export   |
+|   - Acrylic Easel Keepsake Frames        - Heart Feedback Trains Future Prompts   |
++-----------------------------------------------------------------------------------+</pre>
+      </div>
+    </section>
+
+    <!-- Technical Specifications Matrix -->
+    <section class="content-section" id="tech-stack">
+      <div class="section-header">
+        <div class="section-tag">Engineering Matrix</div>
+        <h2 class="section-title">Technical Specifications & Stack</h2>
+        <p class="section-desc">Production-grade Android libraries, local persistence, and AI streaming integration.</p>
       </div>
 
       <div class="table-container">
@@ -1762,46 +1789,41 @@
       </div>
     </section>
 
-    <!-- Directory Structure -->
-    <section class="content-section">
+    <!-- System Architecture Diagram -->
+    <section class="content-section" id="architecture">
       <div class="section-header">
-        <div class="section-tag">Codebase Tour</div>
-        <h2 class="section-title">Project Directory Structure</h2>
-        <p class="section-desc">Production-ready Android modular package organization.</p>
+        <div class="section-tag">Engineering Foundation</div>
+        <h2 class="section-title">System Architecture & Clean Flow</h2>
+        <p class="section-desc">Engineered strictly with Clean Architecture and Unidirectional Data Flow (UDF).</p>
       </div>
 
       <div class="code-container">
         <div class="code-header">
-          <span>Directory Tree</span>
-          <span>Kotlin Clean Architecture</span>
+          <span>Clean Architecture Diagram</span>
+          <span>Kotlin / Android</span>
         </div>
         <pre>
-pyaarai/
-├── app/src/main/kotlin/com/pyaarai/app/
-│   ├── MainActivity.kt               # Main entry point & theme container
-│   ├── PyaarAIApp.kt                 # Scaffold & Navigation Host
-│   ├── data/
-│   │   ├── ai/DeepSeekLoveService.kt # AI LLM Engine & Prompt Pipeline
-│   │   ├── local/
-│   │   │   ├── HeartSyncDatabase.kt   # Room Database Definition (v4)
-│   │   │   ├── Dao.kt                 # Reactive Room DAOs (Flows)
-│   │   │   └── Entities.kt            # Dossier, Memory, Fingerprint Entities
-│   │   └── repository/
-│   │       ├── HeartSyncRepository.kt # Central Data Repository
-│   │       └── UserPreferences.kt     # DataStore Preferences Manager
-│   ├── ui/
-│   │   ├── components/                # Reusable UI Components
-│   │   │   ├── TornPaperBox.kt        # Procedural Torn Paper Canvas
-│   │   │   ├── DoodleOverlay.kt       # Hand-drawn Doodles & Tags
-│   │   │   ├── WashiTape.kt           # Scrapbook Tape Accents
-│   │   │   └── PolaroidCard.kt        # 3D Flipping Photo Cards
-│   │   ├── home/                      # Dashboard & Milestone Tracker
-│   │   ├── studio/                    # AI Poetry & Shayari Studio
-│   │   ├── merch/                     # Gift Mockup Studio (Mug/Shirt/Frame)
-│   │   ├── timeline/                  # Scrapbook Timeline (Memory Lane)
-│   │   ├── notes/                     # Saved Creations & Bookmarks
-│   │   └── onboarding/                # Couple Profile Setup
-│   └── util/WhatsAppShareHelper.kt    # Image Rasterization & Share Provider</pre>
+┌────────────────────────────────────────────────────────────────────────┐
+│                          PRESENTATION LAYER                            │
+│  Jetpack Compose • Material 3 • Custom Canvas • Navigation Component  │
+└───────────────────────────────────┬────────────────────────────────────┘
+                                    │ (Observes UI State / Sends Intents)
+                                    ▼
+┌────────────────────────────────────────────────────────────────────────┐
+│                            VIEWMODEL LAYER                             │
+│       Kotlin Coroutines • StateFlow • SharedFlow • UDF State Machine   │
+└───────────────────────────────────┬────────────────────────────────────┘
+                                    │ (Calls Domain & Data Repositories)
+                                    ▼
+┌────────────────────────────────────────────────────────────────────────┐
+│                               DATA LAYER                               │
+│  ┌───────────────────────────┐          ┌───────────────────────────┐  │
+│  │     Local Persistence     │          │    Remote & AI Engine     │  │
+│  │ • Room Database (v4)      │          │ • OkHttp 3 ConnectionPool │  │
+│  │ • DataStore Preferences   │          │ • DeepSeek Chat API       │  │
+│  │ • FileProvider Cache      │          │ • Streaming SSE Flow      │  │
+│  └───────────────────────────┘          └───────────────────────────┘  │
+└────────────────────────────────────────────────────────────────────────┘</pre>
       </div>
     </section>
 

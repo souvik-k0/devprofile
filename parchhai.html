@@ -1789,6 +1789,18 @@
           <h3 class="feature-title">Pre-Render Automated Audit</h3>
           <p class="feature-text">`StoryEvidenceAuditor` cross-checks citations against claims and geographic coordinates, dropping or downgrading any unverified hallucination before it touches the screen.</p>
         </div>
+
+        <div class="feature-card">
+          <div class="feature-icon-box">⏳</div>
+          <h3 class="feature-title">Multi-Epoch Chronological Taxonomy</h3>
+          <p class="feature-text">Classifies street chronicles into Colonial (1750s–1947), Underworld & Smuggling (1947–1990s), and Modern News eras with objective Spiciness Scores (1–10).</p>
+        </div>
+
+        <div class="feature-card">
+          <div class="feature-icon-box">🏛️</div>
+          <h3 class="feature-title">Physical Real-World Street Anchors</h3>
+          <p class="feature-text">Bridges digital lore with physical reality through tangible architectural cues—faded sandstone archways, colonial gates, and historical chowk corners.</p>
+        </div>
       </div>
     </section>
 
@@ -1835,6 +1847,52 @@
       </div>
       <div class="table-hint">
         <span>← Swipe horizontally to view full technical table →</span>
+      </div>
+    </section>
+
+    <!-- System Architecture Diagram -->
+    <section class="content-section" id="architecture">
+      <div class="section-header">
+        <div class="section-tag">Engineering Foundation</div>
+        <h2 class="section-title">System Architecture & Clean Flow</h2>
+        <p class="section-desc">Engineered strictly with Clean Architecture, MVVM, and reactive StateFlow.</p>
+      </div>
+
+      <div class="code-container">
+        <div class="code-header">
+          <span>Clean Architecture Diagram</span>
+          <span>Kotlin / Android</span>
+        </div>
+        <pre>
+┌──────────────────────────────────────────────────────────────────┐
+│                   PRESENTATION LAYER (Jetpack Compose)           │
+│  LiveParchhaiMapView │ StreetDossierScreen │ ArchivalVaultScreen │
+│  FullStoryReaderDialog │ StoryGuideSheet │ ModernBottomNavBar    │
+└─────────────────────────────────┬────────────────────────────────┘
+                                  │ UI State / Events
+                                  ▼
+┌──────────────────────────────────────────────────────────────────┐
+│                   VIEWMODEL LAYER (MVVM + StateFlow)             │
+│                      ParchhaiViewModel.kt                        │
+│   Reactive Flows: currentLocation, bookmarkedStories, settings   │
+└─────────────────────────────────┬────────────────────────────────┘
+                                  │ Repository Calls
+                                  ▼
+┌──────────────────────────────────────────────────────────────────┐
+│                     DOMAIN / AI ENGINE LAYER                     │
+│  VerifiedEvidenceExtractor ──► EvidenceGroundedNarrator (t=0.3)   │
+│                                           │                      │
+│  GhostInterrogationEngine  ◄── StoryEvidenceAuditor (Audit/Drop)  │
+└─────────────────────────────────┬────────────────────────────────┘
+                                  │ Data Operations
+                                  ▼
+┌──────────────────────────────────────────────────────────────────┐
+│                      DATA LAYER (Local + Remote)                 │
+│  Room Database (ParchhaiDatabase, SpatialCache, Bookmarks)        │
+│  SharedPreferences (Settings, Vault)                             │
+│  Android Geocoder + LocationManager                              │
+│  DeepSeek-V3 / Gemini API Services (Shared OkHttpClient Pool)    │
+└──────────────────────────────────────────────────────────────────┘</pre>
       </div>
     </section>
 
