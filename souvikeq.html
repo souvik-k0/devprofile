@@ -461,11 +461,39 @@
       letter-spacing: -0.02em;
     }
 
-    .section-desc {
-      font-size: 0.98rem;
-      color: var(--text-muted);
-      margin-top: 0.4rem;
-      line-height: 1.6;
+    /* Teaser Video Showcase */
+    .teaser-video-wrap {
+      max-width: 880px;
+      margin: 1.5rem auto 0.5rem;
+      position: relative;
+    }
+
+    .teaser-video-frame {
+      position: relative;
+      background: #090d16;
+      border-radius: var(--radius-xl);
+      border: 1px solid var(--border-light);
+      box-shadow: 0 16px 36px -12px rgba(15, 23, 42, 0.18), 0 0 0 1px rgba(15, 23, 42, 0.04);
+      overflow: hidden;
+      aspect-ratio: 16 / 9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: var(--transition);
+    }
+
+    .teaser-video-frame:hover {
+      box-shadow: 0 24px 48px -12px rgba(15, 23, 42, 0.25);
+    }
+
+    .teaser-video-player {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      background: #000000;
+      border-radius: var(--radius-xl);
+      display: block;
+      outline: none;
     }
 
     /* Screenshots Gallery */
@@ -1321,6 +1349,15 @@
     }
 
     @media (max-width: 640px) {
+      .teaser-video-wrap {
+        margin: 1rem auto 0.25rem;
+      }
+      .teaser-video-frame {
+        border-radius: 14px;
+      }
+      .teaser-video-player {
+        border-radius: 14px;
+      }
       .screenshots-grid {
         grid-template-columns: repeat(2, 1fr);
         gap: 0.75rem;
@@ -1654,7 +1691,7 @@
         font-size: 0.6rem;
       }
 
-      /* Teaser video (pyaarai / redacted) */
+      /* Teaser video */
       .teaser-video-wrap {
         margin: 0.75rem auto 0.25rem;
       }
@@ -1785,6 +1822,24 @@
         <div class="spec-item">
           <span class="spec-label">Spatial Audio</span>
           <span class="spec-value">HRTF Virtualizer & BassBoost</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- Teaser Video Section -->
+    <section class="content-section" id="teaser">
+      <div class="section-header">
+        <div class="section-tag">Official Teaser</div>
+        <h2 class="section-title">Experience SouvikEQ in Motion 🎬</h2>
+        <p class="section-desc">Watch the continuous Bézier parametric EQ desk, live 32-band spectrum analyzer, conversational AI acoustic intelligence companion, and spatial audio engine in action.</p>
+      </div>
+
+      <div class="teaser-video-wrap">
+        <div class="teaser-video-frame">
+          <video class="teaser-video-player" controls playsinline preload="metadata">
+            <source src="SouvikEQ/SouvikEQ.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+          </video>
         </div>
       </div>
     </section>
