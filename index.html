@@ -824,9 +824,9 @@
     }
 
     .custom-apps-stack {
-      grid-template-columns: 1fr !important;
-      width: 100% !important;
-      max-width: 100% !important;
+      grid-template-columns: repeat(2, 1fr);
+      width: 100%;
+      max-width: 100%;
       margin: 0 0 5rem 0 !important;
     }
 
@@ -2478,7 +2478,7 @@
         <div class="category-nav-bar" role="tablist" aria-label="App Categories">
           <button class="cat-nav-btn active" onclick="filterCategory('all', this)" id="btn-cat-all" role="tab" aria-selected="true">
             <span>All Projects</span>
-            <span class="cat-nav-count">5</span>
+            <span class="cat-nav-count">6</span>
           </button>
           <button class="cat-nav-btn" onclick="filterCategory('ai', this)" id="btn-cat-ai" role="tab" aria-selected="false">
             <span class="cat-nav-dot dot-ai"></span>
@@ -2488,7 +2488,7 @@
           <button class="cat-nav-btn" onclick="filterCategory('custom', this)" id="btn-cat-custom" role="tab" aria-selected="false">
             <span class="cat-nav-dot dot-custom"></span>
             <span>2. Custom Apps</span>
-            <span class="cat-nav-count">Web + Android APK</span>
+            <span class="cat-nav-count">2 Projects</span>
           </button>
         </div>
       </div>
@@ -2498,16 +2498,6 @@
            ==================================================================== -->
       <div class="category-group-wrap" id="section-ai-apps-wrap">
         <div class="category-section-header">
-          <div class="category-badge-row">
-            <span class="badge badge-primary">
-              <span class="category-badge-idx">01</span>
-              <span>AI Engineering &amp; Native Mobile</span>
-            </span>
-            <span class="badge badge-status">
-              <span class="status-dot"></span>
-              <span>4 Applications</span>
-            </span>
-          </div>
           <h3 class="category-heading">1. AI Applications</h3>
           <p class="category-subtitle">
             Native Android applications engineered with on-device LLM reasoning, procedural crime simulations, zero-asset PCM audio synthesis, and zero-hallucination geospatial history engines.
@@ -3136,16 +3126,6 @@
            ==================================================================== -->
       <div class="category-group-wrap" id="section-custom-apps-wrap">
         <div class="category-section-header">
-          <div class="category-badge-row">
-            <span class="badge badge-primary" style="background: linear-gradient(135deg, rgba(239,246,255,0.95) 0%, rgba(219,234,254,0.6) 100%); border-color: #93c5fd; color: #1d4ed8;">
-              <span class="category-badge-idx" style="color:#2563eb;">02</span>
-              <span>Full-Stack Web &amp; Android Ecosystem</span>
-            </span>
-            <span class="badge badge-status" style="background: linear-gradient(135deg, rgba(240,253,244,0.95) 0%, rgba(220,252,231,0.6) 100%); border-color: #86efac; color: #15803d;">
-              <span class="status-dot" style="background:#10b981;"></span>
-              <span>Web Platform • Native Android APK</span>
-            </span>
-          </div>
           <h3 class="category-heading">2. Custom Apps</h3>
           <p class="category-subtitle">
             Bespoke cross-platform solutions combining production-ready, cloud-hosted web applications with native Android companion builds for synchronized operational management.
@@ -3299,6 +3279,134 @@
               </div>
 
 
+            </div>
+          </article>
+
+          <!-- CUSTOM APP: TRADITIONAL FINDS MARKETPLACE -->
+          <article class="app-card custom-app-card" data-category="custom-ecommerce" id="app-custom-traditionalfinds">
+            <div class="app-card-top">
+              <div class="app-header-row">
+                <div class="app-identity">
+                  <div class="app-icon-box" style="border-color:#d6a756;background:#fffaf0;">
+                    <img src="TraditionalFinds/Logo.jpg" alt="Traditional Finds Logo">
+                  </div>
+                  <div>
+                    <div style="display:flex; align-items:center; gap:0.5rem; flex-wrap:wrap;">
+                      <h3 class="app-name">Traditional Finds</h3>
+                      <span class="platform-badge-pill" style="background:#fff7ed;color:#9a3412;border-color:#fed7aa;">Web Marketplace</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="app-actions">
+                  <a href="https://trustworthysoftech.info/traditionalfinds/" target="_blank" rel="noopener noreferrer" class="btn btn-dark"
+                    title="Launch Traditional Finds Marketplace" onclick="showToast('Opening Traditional Finds Marketplace...')">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                      <circle cx="12" cy="12" r="10"></circle>
+                      <line x1="2" y1="12" x2="22" y2="12"></line>
+                      <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+                    </svg>
+                    <span>Launch Marketplace</span>
+                    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" style="opacity:0.8;">
+                      <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                      <polyline points="15 3 21 3 21 9"></polyline>
+                      <line x1="10" y1="14" x2="21" y2="3"></line>
+                    </svg>
+                  </a>
+                </div>
+              </div>
+              <div class="app-tagline">Authentic Handmade Crafts &amp; Heritage Goods — Artisan-to-Market Digital Marketplace</div>
+            </div>
+
+            <div class="app-content">
+              <p class="app-description">
+                <strong>Traditional Finds</strong> is a curated marketplace for authentic handmade crafts and cultural heritage goods, sourced directly from artisans. The platform brings handwoven textiles, pottery, copper utensils, folk instruments, and traditional artefacts into a focused digital storefront.
+              </p>
+
+              <ul class="feature-list">
+                <li class="feature-item">
+                  <svg viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" />
+                  </svg>
+                  <div><strong>Curated Heritage Catalog:</strong> Organized discovery across textiles, pottery, utensils, instruments, and cultural artefacts.</div>
+                </li>
+                <li class="feature-item">
+                  <svg viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" />
+                  </svg>
+                  <div><strong>Artisan-Focused Marketplace:</strong> Presents authentic handmade products with an emphasis on traditional craftsmanship and cultural provenance.</div>
+                </li>
+                <li class="feature-item">
+                  <svg viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" />
+                  </svg>
+                  <div><strong>Responsive Web Experience:</strong> Accessible storefront experience designed for product exploration across desktop and mobile devices.</div>
+                </li>
+              </ul>
+
+              <!-- 5 SCREENSHOTS SHOWCASE -->
+              <div class="screens-container">
+                <div class="screens-title-row">
+                  <div class="screens-title">Platform Screenshots</div>
+                  <div class="screens-hint"><span>5 Widescreen Views</span> <span>•</span> <span>Click to expand 🔍</span></div>
+                </div>
+
+                <div class="screens-grid">
+                  <div class="screen-card screen-card-desktop" onclick="openScreenshotModal('traditionalfinds', 0)">
+                    <div class="screen-device device-desktop">
+                      <img src="TraditionalFinds/Screen 1.png" alt="Traditional Finds Homepage" loading="lazy">
+                      <div class="screen-hover-badge">🔍 Expand</div>
+                    </div>
+                    <div class="screen-caption-footer">
+                      <div class="screen-idx">01</div>
+                      <div class="screen-label">Marketplace Homepage</div>
+                    </div>
+                  </div>
+
+                  <div class="screen-card screen-card-desktop" onclick="openScreenshotModal('traditionalfinds', 1)">
+                    <div class="screen-device device-desktop">
+                      <img src="TraditionalFinds/Screen 2.png" alt="Traditional Finds Artisan Collections" loading="lazy">
+                      <div class="screen-hover-badge">🔍 Expand</div>
+                    </div>
+                    <div class="screen-caption-footer">
+                      <div class="screen-idx">02</div>
+                      <div class="screen-label">Artisan Collections</div>
+                    </div>
+                  </div>
+
+                  <div class="screen-card screen-card-desktop" onclick="openScreenshotModal('traditionalfinds', 2)">
+                    <div class="screen-device device-desktop">
+                      <img src="TraditionalFinds/Screen 3.png" alt="Traditional Finds Product Catalog" loading="lazy">
+                      <div class="screen-hover-badge">🔍 Expand</div>
+                    </div>
+                    <div class="screen-caption-footer">
+                      <div class="screen-idx">03</div>
+                      <div class="screen-label">Filtered Catalog</div>
+                    </div>
+                  </div>
+
+                  <div class="screen-card screen-card-desktop" onclick="openScreenshotModal('traditionalfinds', 3)">
+                    <div class="screen-device device-desktop">
+                      <img src="TraditionalFinds/Screen 4.png" alt="Traditional Finds Order Tracking" loading="lazy">
+                      <div class="screen-hover-badge">🔍 Expand</div>
+                    </div>
+                    <div class="screen-caption-footer">
+                      <div class="screen-idx">04</div>
+                      <div class="screen-label">Order Tracking</div>
+                    </div>
+                  </div>
+
+                  <div class="screen-card screen-card-desktop" onclick="openScreenshotModal('traditionalfinds', 4)">
+                    <div class="screen-device device-desktop">
+                      <img src="TraditionalFinds/Screen 5.png" alt="Traditional Finds Shopping Cart" loading="lazy">
+                      <div class="screen-hover-badge">🔍 Expand</div>
+                    </div>
+                    <div class="screen-caption-footer">
+                      <div class="screen-idx">05</div>
+                      <div class="screen-label">Shopping Cart</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </article>
 
@@ -3591,6 +3699,13 @@
         { src: 'Nutriflow/Screen 3.png', title: '3. Item Master & Central Repository', label: 'Item Master Hub', caption: 'Comprehensive catalog managing supplier directories, raw material specifications, finished feed goods, packaging specs, and industrial plant equipment.' },
         { src: 'Nutriflow/Screen 4.png', title: '4. Quality Assurance & Lab QC Hub', label: 'Lab QC Hub', caption: 'Laboratory proximate analysis testing chemical assay parameters, AOAC & BIS compliance, protein and moisture verification, and automated silo unloading authorization.' },
         { src: 'Nutriflow/Screen 5.png', title: '5. GST Tax Invoice & Delivery Challan', label: 'Tax Billing & Challan', caption: 'Statutory GST-compliant invoicing system with automated tax schedule calculations, consignee delivery points, customer ledger debits, and inventory stock deductions.' }
+      ],
+      'traditionalfinds': [
+        { src: 'TraditionalFinds/Screen 1.png', title: '1. Traditional Finds Marketplace Homepage', label: 'Marketplace Homepage', caption: 'Heritage-focused storefront hero introducing authentic handmade crafts, curated artisan categories, and direct-from-maker shopping.' },
+        { src: 'TraditionalFinds/Screen 2.png', title: '2. Artisan Collections', label: 'Artisan Collections', caption: 'Curated basket and storage collection with artisan product cards, ratings, discounted pricing, and quick add-to-cart actions.' },
+        { src: 'TraditionalFinds/Screen 3.png', title: '3. Filtered Product Catalog', label: 'Filtered Catalog', caption: 'Category and attribute filters combined with a responsive product grid for browsing traditional crafts and home decor.' },
+        { src: 'TraditionalFinds/Screen 4.png', title: '4. Order Tracking', label: 'Order Tracking', caption: 'Customer order timeline covering confirmation, artisan processing, dispatch, in-transit delivery, and final destination status.' },
+        { src: 'TraditionalFinds/Screen 5.png', title: '5. Shopping Cart', label: 'Shopping Cart', caption: 'Cart management interface with item selection, quantity controls, product pricing, delivery details, and order totals.' }
       ]
     };
 
@@ -3615,10 +3730,11 @@
         'redacted': 'Redacted Detective',
         'souvikeq': 'SouvikEQ Studio',
         'parchhai': 'Parchhai',
-        'nutriflow': 'NutriFlow ERP'
+        'nutriflow': 'NutriFlow ERP',
+        'traditionalfinds': 'Traditional Finds'
       };
 
-            const isDesktop = (currentAppKey === 'nutriflow');
+      const isDesktop = (currentAppKey === 'nutriflow' || currentAppKey === 'traditionalfinds');
       const modalBox = document.querySelector('.screenshot-modal-box');
       if (isDesktop) {
         if (modalBox) modalBox.classList.add('desktop-modal');
